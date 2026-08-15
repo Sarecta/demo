@@ -27,7 +27,15 @@ When given a Claude Design export (often a React/framework project):
 2. Extract: layout structure, section order, color palette, typography choices, copy/text, and any images.
 3. Re-implement it as the single vanilla HTML file. Flatten components into plain markup.
 4. If the export includes interactivity (menus, carousels, tabs), reproduce only what's visible on a demo walkthrough. A hamburger menu should open/close; a carousel can be static images side by side if that's faster.
-5. If something in the export is ambiguous or missing, make a reasonable choice and move on. Do not ask clarifying questions for cosmetic details.
+5. **Never ask clarifying questions — about anything.** If something is ambiguous or missing, make a reasonable choice and keep going. The user's job is to drop the handoff in; yours is to hand back a live URL. List any assumptions worth knowing in your final reply alongside the URL — don't stop the build to ask.
+
+## Handoff Hygiene
+
+The handoff typically arrives via Claude Design's **Share with Claude Code** feature (files appear in the session) or as a zip/folder the user drops in. Wherever it lands:
+
+- Read or unpack it in the session scratchpad — never copy it into the repo.
+- **Never commit the design export.** The repo is public. The only thing that gets committed is the finished `<prospect-name>/` folder (`index.html` plus optional `assets/`).
+- If the export was dropped inside the repo working tree, leave it untracked — stage only the prospect folder (`git add <prospect-name>`), never `git add .` or `git add -A`.
 
 ## Page Requirements
 
@@ -68,6 +76,8 @@ All demo sites live in one repo: **`Sarecta/demo`**, which already has GitHub Pa
 
 **Folder naming:** `<prospect-name>` in kebab-case (e.g., `acme-plumbing`). One folder per prospect, containing `index.html` (and `assets/` if needed) at the folder root.
 
+**Derive the name yourself — never ask.** Claude Design handoffs contain the business name (in the hero, header, or copy); kebab-case it. If it's somehow absent, fall back to the export's file or project name. Only ask the user if neither source yields a name at all.
+
 Use plain `git` only — do not assume the `gh` CLI is installed. Different machines authenticate to GitHub differently (some SSH, some HTTPS), so pick the remote URL that actually works on the current machine:
 
 ```bash
@@ -78,12 +88,21 @@ git ls-remote https://github.com/Sarecta/demo.git >/dev/null 2>&1 && echo HTTPS_
 
 Set `REMOTE_URL` to `git@github.com:Sarecta/demo.git` if SSH works, otherwise `https://github.com/Sarecta/demo.git`. If neither works, stop and tell the user their machine has no GitHub credentials for `Sarecta/demo` (SSH key or HTTPS credential helper needed) — use the Netlify Drop fallback below in the meantime.
 
+**Check where you are before cloning.** Sessions usually start *inside* a clone of `Sarecta/demo` — cloning from there would nest a second copy at `demo/demo/` and you'd commit into the wrong tree.
+
 ```bash
-# 2. Clone (first time) or pull (repo already cloned)
-git clone "$REMOTE_URL" demo || git -C demo pull
+# 2. Are we already in the repo?
+git remote get-url origin 2>/dev/null | grep -qi 'sarecta/demo' && echo IN_REPO
+```
 
+If `IN_REPO`: just `git pull` and work here — do not clone. Otherwise:
+
+```bash
+git clone "$REMOTE_URL" demo
 cd demo
+```
 
+```bash
 # 3. Add the new demo as its own folder
 mkdir <prospect-name>
 cp /path/to/built/index.html <prospect-name>/
