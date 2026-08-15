@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git pull:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git ls-remote:*)",
+      "Bash(git remote get-url:*)",
+      "Bash(git remote set-url origin git@github.com:Sarecta/demo.git)",
+      "Bash(git remote set-url origin https://github.com/Sarecta/demo.git)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(curl -s -o /dev/null -w:*)"
+    ]
+  }
+}
