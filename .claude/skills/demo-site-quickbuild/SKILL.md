@@ -68,12 +68,23 @@ All demo sites live in one repo: **`Sarecta/demo`**, which already has GitHub Pa
 
 **Folder naming:** `<prospect-name>` in kebab-case (e.g., `acme-plumbing`). One folder per prospect, containing `index.html` (and `assets/` if needed) at the folder root.
 
+Use plain `git` only — do not assume the `gh` CLI is installed. Different machines authenticate to GitHub differently (some SSH, some HTTPS), so pick the remote URL that actually works on the current machine:
+
 ```bash
-# Clone (first time) or pull (repo already cloned)
-gh repo clone Sarecta/demo || (cd demo && git pull)
+# 1. Find a working auth path (SSH first, then HTTPS)
+git ls-remote git@github.com:Sarecta/demo.git >/dev/null 2>&1 && echo SSH_OK
+git ls-remote https://github.com/Sarecta/demo.git >/dev/null 2>&1 && echo HTTPS_OK
+```
+
+Set `REMOTE_URL` to `git@github.com:Sarecta/demo.git` if SSH works, otherwise `https://github.com/Sarecta/demo.git`. If neither works, stop and tell the user their machine has no GitHub credentials for `Sarecta/demo` (SSH key or HTTPS credential helper needed) — use the Netlify Drop fallback below in the meantime.
+
+```bash
+# 2. Clone (first time) or pull (repo already cloned)
+git clone "$REMOTE_URL" demo || git -C demo pull
+
 cd demo
 
-# Add the new demo as its own folder
+# 3. Add the new demo as its own folder
 mkdir <prospect-name>
 cp /path/to/built/index.html <prospect-name>/
 # copy assets/ too if the demo has one
@@ -82,6 +93,8 @@ git add <prospect-name>
 git commit -m "Add demo: <prospect-name>"
 git push
 ```
+
+If the repo is already cloned but its remote uses the auth scheme that doesn't work on this machine, fix it in place rather than recloning: `git remote set-url origin "$REMOTE_URL"`.
 
 The public URL will be:
 
@@ -104,8 +117,9 @@ A `200` means it's live (a `404` right after pushing usually just means the buil
 - The repo is public, so don't commit anything sensitive (real customer data, credentials, internal pricing).
 
 **Troubleshooting:**
-- `gh` not authenticated → run `gh auth status`; if logged out, tell the user to run `gh auth login` (needs an account with **write access** to `Sarecta/demo`).
+- Both `git ls-remote` probes fail → the machine can't authenticate to GitHub. Tell the user they need either an SSH key added to a GitHub account with **write access** to `Sarecta/demo` (`ssh -T git@github.com` to verify), or HTTPS credentials (e.g. `gh auth login` if they have the GitHub CLI, or a stored token in the keychain). Don't attempt to create or install credentials yourself.
 - Push rejected (non-fast-forward) → `git pull --rebase` then push again; someone else added a demo since your clone.
+- `could not read Username for 'https://github.com'` on push → the remote is HTTPS but this machine only has SSH auth; run `git remote set-url origin git@github.com:Sarecta/demo.git` and push again.
 - 404 persists after several minutes → confirm the file is named exactly `index.html` directly inside the prospect folder, not nested deeper, and that the push actually landed on `main`.
 
 **Fallback (no GitHub access):** drag the demo folder onto app.netlify.com/drop for an instant public URL with no account setup.
