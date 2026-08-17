@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ming's Auto Service - Buford Hwy, Doraville GA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #0C0F14; color: #EDEFF3; font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #6E9BFF; text-decoration: none; }
+  a:hover { color: #9CBBFF; }
+  input, textarea, button { font-family: inherit; }
+  input::placeholder, textarea::placeholder { color: #6E7686; }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+  .rise { animation: riseIn .8s cubic-bezier(.16,1,.3,1) both; }
+  .rise-delay { animation: riseIn .8s .12s cubic-bezier(.16,1,.3,1) both; }
+  .marquee-track { display: flex; width: max-content; animation: drift 38s linear infinite; }
+  .btn-primary { background:#3D7BFF; color:#06090F; transition: transform .16s ease, background .16s ease; }
+  .btn-primary:hover { background:#5F92FF; color:#06090F; }
+  .btn-primary:active { transform: translateY(1px); }
+  .btn-outline { border:1.5px solid rgba(237,239,243,0.28); color:#EDEFF3; transition: border-color .16s ease, background .16s ease; }
+  .btn-outline:hover { background: rgba(237,239,243,0.08); border-color: rgba(237,239,243,0.5); color:#EDEFF3; }
+  .rail-nav-link { color:#B9C0CC; padding:9px 0; border-bottom:1px solid rgba(237,239,243,0.08); display:block; }
+  .rail-nav-link:hover { color:#FFFFFF; }
+  .service-row { display:grid; grid-template-columns:52px 1fr auto; gap:20px; align-items:baseline; padding:26px 8px; border-top:1px solid rgba(237,239,243,0.12); color:#EDEFF3; transition: background .2s ease, padding-left .2s ease; }
+  .service-row:hover, .service-row:focus { background: rgba(61,123,255,0.08); padding-left:16px; color:#FFFFFF; }
+  .review-card { border:1px solid rgba(237,239,243,0.12); border-radius:14px; padding:28px; transition: border-color .2s ease, transform .2s ease; }
+  .review-card:hover { border-color: rgba(61,123,255,0.55); transform: translateY(-3px); }
+  .field { width:100%; padding:14px 16px; border-radius:12px; border:1.5px solid rgba(237,239,243,0.22); background:#12161D; font-size:16px; color:#EDEFF3; outline:none; }
+  .field:focus { border-color:#3D7BFF; box-shadow: 0 0 0 3px rgba(61,123,255,0.25); }
+  .pane-img { transition: opacity .35s ease; }
+
+  @media (min-width: 1041px) { .mobilebar { display:none !important; } }
+  @media (max-width: 1040px) {
+    .shell { display:block !important; }
+    .rail { position:static !important; width:100% !important; height:auto !important; border-right:none !important; border-bottom:1px solid rgba(237,239,243,0.12) !important; }
+    .rail-inner { flex-direction:row !important; align-items:center !important; justify-content:space-between !important; flex-wrap:wrap !important; gap:16px !important; padding:18px 24px !important; }
+    .rail-nav, .rail-foot, .rail-cta, .rail-status { display:none !important; }
+    .main { margin-left:0 !important; width:100% !important; }
+    .hover-pane { display:none !important; }
+    .servicegrid { grid-template-columns:1fr !important; }
+    body { padding-bottom: 78px; }
+  }
+  @media (max-width: 720px) {
+    .pad { padding-left:20px !important; padding-right:20px !important; }
+    .row { grid-template-columns:1fr !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell" style="display:flex;align-items:flex-start;min-height:100dvh">
+
+  <aside class="rail" style="position:sticky;top:0;width:296px;flex:none;height:100dvh;background:#090C10;border-right:1px solid rgba(237,239,243,0.10);z-index:40">
+    <div class="rail-inner pad" style="height:100%;display:flex;flex-direction:column;justify-content:space-between;padding:28px 26px 96px">
+      <div>
+        <a href="#top" style="display:flex;align-items:center;gap:12px;color:#EDEFF3">
+          <svg viewBox="0 0 40 40" width="40" height="40" aria-hidden="true" style="display:block;flex:none"><circle cx="20" cy="20" r="19" fill="#3D7BFF"></circle><path d="M11.5 27.5 V13.5 L20 21.5 L28.5 13.5 V27.5" fill="none" stroke="#0C0F14" stroke-width="3.2"></path></svg>
+          <span style="display:flex;flex-direction:column;line-height:1.15">
+            <span style="font-family:Archivo,sans-serif;font-size:17px;font-weight:700;letter-spacing:-0.02em">Ming's Auto Service</span>
+            <span style="font-size:12px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#8B94A4">Doraville, GA</span>
+          </span>
+        </a>
+        <nav class="rail-nav" style="margin-top:44px;display:flex;flex-direction:column;gap:2px;font-size:15px;font-weight:500">
+          <a href="#services" class="rail-nav-link">What we fix</a>
+          <a href="#promise" class="rail-nav-link">How pricing works</a>
+          <a href="#reviews" class="rail-nav-link">Reviews</a>
+          <a href="#visit" class="rail-nav-link">Visit the shop</a>
+        </nav>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="rail-foot" style="font-size:13.5px;line-height:1.6;color:#8B94A4">5945 Buford Hwy NE<br>Doraville, GA 30340</div>
+        <div class="rail-status" id="status-line-desktop" style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;color:#B9C0CC"></div>
+        <a class="rail-cta btn-primary" href="tel:+17709868798" style="padding:15px 20px;border-radius:12px;font-size:16px;font-weight:700;text-align:center;white-space:nowrap">Call (770) 986-8798</a>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main" style="flex:1;min-width:0">
+
+    <section id="top" class="pad" style="padding:clamp(36px,7vh,84px) 48px clamp(28px,5vh,56px);border-bottom:1px solid rgba(237,239,243,0.10)">
+      <h1 class="rise" style="font-family:Archivo,sans-serif;margin:0;font-size:clamp(42px,7.2vw,104px);line-height:0.94;letter-spacing:-0.045em;font-weight:700;max-width:14ch;">Know the price before we touch the car.</h1>
+      <div class="row rise-delay" style="margin-top:clamp(24px,4vh,44px);display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:end;">
+        <p style="margin:0;font-size:clamp(17px,1.6vw,21px);line-height:1.5;color:#AEB6C4;max-width:46ch">Independent shop on Buford Highway. Real diagnosis, itemized quote, most repairs finished the same day.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-start">
+          <a href="tel:+17709868798" class="btn-primary" style="padding:16px 28px;border-radius:12px;font-size:16.5px;font-weight:700;white-space:nowrap">Call now</a>
+          <a href="#quote" class="btn-outline" style="padding:16px 28px;border-radius:12px;font-size:16.5px;font-weight:600;white-space:nowrap">Get a free estimate</a>
+        </div>
+      </div>
+    </section>
+
+    <section style="position:relative;height:clamp(280px,44vh,460px);overflow:hidden;border-bottom:1px solid rgba(237,239,243,0.10)">
+      <img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=2000&q=72&auto=format" alt="Technician diagnosing an engine under the hood" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.72">
+      <div style="position:absolute;left:0;right:0;bottom:0;padding:28px 48px;background:linear-gradient(to top, rgba(12,15,20,0.92), rgba(12,15,20,0))">
+        <div style="display:flex;flex-wrap:wrap;gap:32px;align-items:baseline">
+          <span style="font-family:Archivo,sans-serif;font-size:clamp(28px,3.4vw,44px);font-weight:700;letter-spacing:-0.03em">4.7</span>
+          <span style="font-size:15.5px;color:#C6CCD8">out of 5 across 408 Google reviews</span>
+        </div>
+      </div>
+    </section>
+
+    <section style="overflow:hidden;border-bottom:1px solid rgba(237,239,243,0.10);padding:18px 0;background:#090C10">
+      <div class="marquee-track">
+        <div style="display:flex;gap:44px;padding-right:44px;font-family:Archivo,sans-serif;font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#6E7686;white-space:nowrap">
+          <span>Brakes</span><span>Check engine light</span><span>A/C service</span><span>Oil and filters</span><span>Batteries</span><span>Alternators</span><span>Timing belts</span><span>Suspension</span><span>Tune-ups</span><span>Radiators</span>
+        </div>
+        <div style="display:flex;gap:44px;padding-right:44px;font-family:Archivo,sans-serif;font-size:15px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:#6E7686;white-space:nowrap" aria-hidden="true">
+          <span>Brakes</span><span>Check engine light</span><span>A/C service</span><span>Oil and filters</span><span>Batteries</span><span>Alternators</span><span>Timing belts</span><span>Suspension</span><span>Tune-ups</span><span>Radiators</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="pad" style="padding:clamp(48px,8vh,96px) 48px;border-bottom:1px solid rgba(237,239,243,0.10)">
+      <h2 style="font-family:Archivo,sans-serif;margin:0 0 clamp(24px,4vh,44px);font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.035em;font-weight:700;max-width:20ch">What we fix, most days of the week</h2>
+      <div class="servicegrid" style="display:grid;grid-template-columns:1.15fr 0.85fr;gap:48px;align-items:start">
+        <div id="service-list">
+          <div style="border-top:1px solid rgba(237,239,243,0.12)"></div>
+        </div>
+        <div class="hover-pane" style="position:sticky;top:40px;border-radius:14px;overflow:hidden;aspect-ratio:3/4;background:#12161D">
+          <img id="service-pane-img" class="pane-img" src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200&q=72&auto=format" alt="Mechanic working in an engine bay" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+      </div>
+    </section>
+
+    <section id="promise" class="pad" style="padding:clamp(48px,8vh,96px) 48px;border-bottom:1px solid rgba(237,239,243,0.10);background:#090C10">
+      <div class="row" style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:48px">
+        <h2 style="font-family:Archivo,sans-serif;margin:0;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.035em;font-weight:700">Three things we never do</h2>
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <div style="padding:24px 0;border-top:1px solid rgba(237,239,243,0.12)">
+            <h3 style="font-family:Archivo,sans-serif;margin:0;font-size:21px;font-weight:600;letter-spacing:-0.02em">Start work you did not approve</h3>
+            <p style="margin:8px 0 0;font-size:16px;line-height:1.6;color:#9AA2B1;max-width:52ch">You see parts and labor before a wrench moves. The number you approve is the number you pay.</p>
+          </div>
+          <div style="padding:24px 0;border-top:1px solid rgba(237,239,243,0.12)">
+            <h3 style="font-family:Archivo,sans-serif;margin:0;font-size:21px;font-weight:600;letter-spacing:-0.02em">Sell you a repair that can wait</h3>
+            <p style="margin:8px 0 0;font-size:16px;line-height:1.6;color:#9AA2B1;max-width:52ch">If a part has life left in it, we tell you how long and put it on the list for next time.</p>
+          </div>
+          <div style="padding:24px 0;border-top:1px solid rgba(237,239,243,0.12);border-bottom:1px solid rgba(237,239,243,0.12)">
+            <h3 style="font-family:Archivo,sans-serif;margin:0;font-size:21px;font-weight:600;letter-spacing:-0.02em">Keep your car longer than we said</h3>
+            <p style="margin:8px 0 0;font-size:16px;line-height:1.6;color:#9AA2B1;max-width:52ch">Most common jobs are done the same day. If a part is slow, you hear it from us first.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews" class="pad" style="padding:clamp(48px,8vh,96px) 48px;border-bottom:1px solid rgba(237,239,243,0.10)">
+      <blockquote style="margin:0;font-family:Archivo,sans-serif;font-size:clamp(26px,3.4vw,44px);line-height:1.22;letter-spacing:-0.03em;font-weight:600;max-width:22ch">&ldquo;They told me the repair could wait and charged me nothing to look.&rdquo;</blockquote>
+      <div style="margin-top:22px;font-size:15.5px;color:#9AA2B1">Denise A., Doraville</div>
+      <div class="row" style="margin-top:clamp(32px,5vh,56px);display:grid;grid-template-columns:1fr 1fr;gap:20px">
+        <div class="review-card">
+          <p style="margin:0;font-size:18px;line-height:1.5;color:#DDE2EA">&ldquo;Quoted $900 at the dealer. Ming's did it for less than half and had it done by 4 pm.&rdquo;</p>
+          <div style="margin-top:18px;font-size:14.5px;color:#8B94A4">Marcus Whitfield, Chamblee</div>
+        </div>
+        <div class="review-card">
+          <p style="margin:0;font-size:18px;line-height:1.5;color:#DDE2EA">&ldquo;Straight answers, fair price, no pressure. Whole family takes their cars here now.&rdquo;</p>
+          <div style="margin-top:18px;font-size:14.5px;color:#8B94A4">Thuy Nguyen, Norcross</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="visit" class="pad" style="padding:clamp(48px,8vh,96px) 48px 140px">
+      <div class="row" style="display:grid;grid-template-columns:1fr 1fr;gap:48px">
+        <div id="quote">
+          <h2 style="font-family:Archivo,sans-serif;margin:0;font-size:clamp(28px,3.6vw,46px);line-height:1.05;letter-spacing:-0.035em;font-weight:700">Get a free estimate</h2>
+          <p style="margin:14px 0 0;font-size:16.5px;line-height:1.6;color:#9AA2B1;max-width:44ch">Tell us what the car is doing and we will call you back with a real number.</p>
+          <form id="quote-form" style="margin-top:28px;display:grid;gap:18px;max-width:520px">
+            <div style="display:grid;gap:8px">
+              <label for="v2-name" style="font-size:14px;font-weight:600;color:#DDE2EA">Your name</label>
+              <input class="field" id="v2-name" name="name" required placeholder="First and last">
+            </div>
+            <div class="row" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+              <div style="display:grid;gap:8px">
+                <label for="v2-phone" style="font-size:14px;font-weight:600;color:#DDE2EA">Phone</label>
+                <input class="field" id="v2-phone" name="phone" type="tel" required placeholder="(404) 555-0182">
+              </div>
+              <div style="display:grid;gap:8px">
+                <label for="v2-vehicle" style="font-size:14px;font-weight:600;color:#DDE2EA">Vehicle</label>
+                <input class="field" id="v2-vehicle" name="vehicle" placeholder="2015 Honda Accord">
+              </div>
+            </div>
+            <div style="display:grid;gap:8px">
+              <label for="v2-issue" style="font-size:14px;font-weight:600;color:#DDE2EA">What's going on?</label>
+              <textarea class="field" id="v2-issue" name="issue" rows="3" placeholder="Grinding noise when I brake" style="resize:vertical"></textarea>
+              <span style="font-size:13.5px;color:#8B94A4">A rough description is plenty. We ask the rest on the phone.</span>
+            </div>
+            <div id="form-error" style="display:none;font-size:14px;font-weight:500;color:#FFB4A8;background:rgba(255,110,90,0.12);border-radius:12px;padding:12px 14px">Please add your name and a phone number so we can call you back.</div>
+            <div id="form-success" style="display:none;font-size:15px;font-weight:500;color:#BBD0FF;background:rgba(61,123,255,0.14);border-radius:12px;padding:14px 16px">Got it. This is a demo — no request was actually sent. On the real site, we'd call you back shortly.</div>
+            <button type="submit" id="quote-submit" class="btn-primary" style="justify-self:start;border:none;padding:16px 30px;border-radius:12px;font-size:16.5px;font-weight:700;cursor:pointer">Request my estimate</button>
+          </form>
+        </div>
+        <div>
+          <div style="border-radius:14px;overflow:hidden;border:1px solid rgba(237,239,243,0.12)">
+            <iframe title="Map to Ming's Auto Service, 5945 Buford Hwy NE, Doraville, GA" src="https://maps.google.com/maps?q=5945%20Buford%20Hwy%20NE%2C%20Doraville%2C%20GA%2030340&z=15&output=embed" loading="lazy" style="width:100%;height:300px;border:0;display:block;filter:grayscale(0.3) contrast(1.05)"></iframe>
+          </div>
+          <div style="margin-top:26px;font-size:17px;line-height:1.6;color:#DDE2EA">5945 Buford Hwy NE<br>Doraville, GA 30340<br><span style="color:#8B94A4">In the Korean Shopping Center</span></div>
+          <div style="margin-top:22px;display:grid;gap:10px;font-size:15.5px;color:#B9C0CC;max-width:420px">
+            <div style="display:flex;justify-content:space-between;gap:16px;padding-bottom:10px;border-bottom:1px solid rgba(237,239,243,0.10)"><span>Monday to Friday</span><span style="font-weight:600;color:#EDEFF3">8:00 AM - 6:00 PM</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px;padding-bottom:10px;border-bottom:1px solid rgba(237,239,243,0.10)"><span>Saturday</span><span style="font-weight:600;color:#EDEFF3">8:00 AM - 4:00 PM</span></div>
+            <div style="display:flex;justify-content:space-between;gap:16px"><span>Sunday</span><span style="font-weight:600;color:#8B94A4">Closed</span></div>
+          </div>
+          <a href="https://maps.google.com/?q=5945+Buford+Hwy+NE,+Doraville,+GA+30340" target="_blank" rel="noopener" class="btn-outline" style="display:inline-block;margin-top:26px;padding:14px 26px;border-radius:12px;font-size:15.5px;font-weight:600">Get directions</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="mobilebar" style="position:fixed;left:0;right:0;bottom:0;z-index:60;background:#3D7BFF;padding:12px 18px calc(12px + env(safe-area-inset-bottom));display:flex;gap:12px;align-items:center;justify-content:space-between">
+    <div style="display:flex;flex-direction:column;line-height:1.25;color:#06090F">
+      <span id="status-line-mobile" style="font-size:14.5px;font-weight:700"></span>
+      <span style="font-size:12.5px;font-weight:500;opacity:0.75">Walk-ins welcome on Buford Hwy</span>
+    </div>
+    <a href="tel:+17709868798" style="background:#06090F;color:#EDEFF3;padding:13px 24px;border-radius:12px;font-size:16px;font-weight:700;white-space:nowrap">Call now</a>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  var SERVICES = [
+    { num: "01", title: "Check engine light and diagnostics", body: "We scan it, test it, and explain the actual cause before anyone touches a wrench.",
+      img: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200&q=72&auto=format", alt: "Mechanic working in an engine bay" },
+    { num: "02", title: "Brakes and suspension", body: "Pads, rotors, calipers, struts and shocks, done with parts we would put on our own cars.",
+      img: "https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=1200&q=72&auto=format", alt: "Hands holding tools over a vehicle" },
+    { num: "03", title: "Oil, filters and tune-ups", body: "Routine maintenance while you wait, without the upsell list at the counter.",
+      img: "https://images.pexels.com/photos/4489702/pexels-photo-4489702.jpeg?auto=compress&w=1200", alt: "Mechanic in a service bay" },
+    { num: "04", title: "A/C, batteries and electrical", body: "Georgia summers are hard on cars. Cold air and reliable starts, sorted the same day.",
+      img: "https://images.unsplash.com/photo-1625047509168-a7026f36de04?w=1200&q=72&auto=format", alt: "Technician diagnosing an engine" },
+    { num: "05", title: "Engine and transmission work", body: "Timing belts, leaks, overheating and hard shifts, quoted before we start.",
+      img: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1200&q=72&auto=format", alt: "Close view of an engine belt and pulleys" }
+  ];
+
+  var list = document.getElementById("service-list");
+  var divider = list.firstElementChild;
+  var paneImg = document.getElementById("service-pane-img");
+
+  function setActive(i) {
+    var s = SERVICES[i];
+    if (paneImg.getAttribute("src") !== s.img) {
+      paneImg.style.opacity = "0";
+      setTimeout(function () {
+        paneImg.setAttribute("src", s.img);
+        paneImg.setAttribute("alt", s.alt);
+        paneImg.style.opacity = "1";
+      }, 120);
+    }
+  }
+
+  SERVICES.forEach(function (s, i) {
+    var row = document.createElement("a");
+    row.href = "#quote";
+    row.className = "service-row";
+    row.innerHTML =
+      '<span style="font-family:Archivo,sans-serif;font-size:14px;font-weight:600;color:#6E7686;letter-spacing:0.06em">' + s.num + '</span>' +
+      '<span>' +
+        '<span style="font-family:Archivo,sans-serif;display:block;font-size:clamp(20px,2.1vw,27px);font-weight:600;letter-spacing:-0.02em">' + s.title + '</span>' +
+        '<span style="display:block;margin-top:8px;font-size:15.5px;line-height:1.55;color:#9AA2B1;max-width:44ch">' + s.body + '</span>' +
+      '</span>' +
+      '<span style="font-size:14px;font-weight:600;color:#3D7BFF;white-space:nowrap">Get a price</span>';
+    row.addEventListener("mouseenter", function () { setActive(i); });
+    row.addEventListener("focus", function () { setActive(i); });
+    list.insertBefore(row, divider);
+  });
+
+  function statusLine() {
+    var now = new Date();
+    var d = now.getDay(), h = now.getHours() + now.getMinutes() / 60;
+    if (d === 0) return "Closed Sunday. Opens Monday at 8 AM";
+    var close = d === 6 ? 16 : 18;
+    if (h < 8) return "Opens today at 8 AM";
+    if (h < close) return "Open today until " + (close === 16 ? "4 PM" : "6 PM");
+    return d === 6 ? "Closed now. Opens Monday at 8 AM" : "Closed now. Opens tomorrow at 8 AM";
+  }
+  var line = statusLine();
+  document.getElementById("status-line-desktop").textContent = line;
+  document.getElementById("status-line-mobile").textContent = line;
+
+  var form = document.getElementById("quote-form");
+  var errorBox = document.getElementById("form-error");
+  var successBox = document.getElementById("form-success");
+  var submitBtn = document.getElementById("quote-submit");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = new FormData(form);
+    var ok = String(f.get("name") || "").trim() && String(f.get("phone") || "").trim();
+    errorBox.style.display = ok ? "none" : "block";
+    successBox.style.display = ok ? "block" : "none";
+    if (ok) submitBtn.textContent = "Request sent";
+  });
+})();
+</script>
+
+</body>
+</html>
