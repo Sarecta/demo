@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mr. Home Run Barber Shop — Barber on Buford Highway, Doraville GA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: #101114; color: #EFE9DE; font-family: 'Instrument Sans', Helvetica, Arial, sans-serif; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: #D8412F; }
+  ::selection { background: #D8412F; color: #EFE9DE; }
+  h1, h2, h3, p, figure, blockquote { margin: 0; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  .osw { font-family: Oswald, 'Arial Narrow', sans-serif; font-weight: 700; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .acc { color: #D8412F; }
+  @keyframes mh-pulse { 0%,100% { opacity: 1; transform: scale(1) } 50% { opacity: .3; transform: scale(.8) } }
+  @keyframes mh-ticker { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+  @keyframes mh-float { 0%,100% { transform: translateY(0) rotate(-.6deg) } 50% { transform: translateY(-10px) rotate(.6deg) } }
+  @keyframes mh-sweep { 0% { transform: translateX(-100%) } 55%,100% { transform: translateX(100%) } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } * { animation: none !important; transition-duration: .01ms !important } }
+
+  [data-reveal] { opacity: 0; transform: translateY(22px); transition: opacity .5s cubic-bezier(.2,.8,.2,1), transform .55s cubic-bezier(.2,.8,.2,1); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* Placeholder tile — matches the handoff's own placeholder artwork. No stock photos used. */
+  .ph-tile { position: relative; width: 100%; height: 100%; min-height: inherit; background-color: #17181C;
+    background-image: repeating-linear-gradient(135deg, rgba(239,233,222,.05) 0 1px, transparent 1px 9px); overflow: hidden; }
+  .ph-tile::before { content: ''; position: absolute; top: 10px; left: 10px; width: 16px; height: 16px; border-top: 1px solid rgba(239,233,222,.32); border-left: 1px solid rgba(239,233,222,.32); }
+  .ph-tile::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 4px; background: #D8412F; }
+  .ph-tile .cap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; }
+  .ph-tile .cap span { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: rgba(239,233,222,.5); line-height: 1.5; }
+
+  header.site { position: fixed; top: 0; left: 0; right: 0; z-index: 60; background: transparent; border-bottom: 1px solid transparent; transition: background .3s cubic-bezier(.2,.8,.2,1), border-color .3s, backdrop-filter .3s; }
+  header.site.scrolled { background: rgba(16,17,20,.94); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(239,233,222,.16); }
+  .navlink { padding: 6px 0; border-bottom: 1px solid transparent; }
+  .navlink:hover { border-bottom: 1px solid #D8412F; color: #D8412F; }
+  .navphone:hover { border-color: #EFE9DE; color: #EFE9DE; }
+  .sweep { position: relative; overflow: hidden; }
+  .sweep::before { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, transparent, rgba(255,255,255,.32), transparent); animation: mh-sweep 5.5s ease-in-out infinite; pointer-events: none; }
+  .btn-acc { transition: transform .16s cubic-bezier(.2,.8,.2,1), box-shadow .16s; }
+  .btn-acc:hover { transform: translateY(-2px); color: #EFE9DE; }
+  .btn-acc-lg:hover { transform: translateY(-3px); box-shadow: 0 12px 0 -5px rgba(216,65,47,.4); color: #EFE9DE; }
+  .btn-outline-lg { transition: background .16s, border-color .16s; }
+  .btn-outline-lg:hover { background: rgba(239,233,222,.08); border-color: #EFE9DE; color: #EFE9DE; }
+
+  .hero-media { position: relative; overflow: hidden; background: #17181C; aspect-ratio: 4/3; max-height: min(70vh,720px); }
+  @media (max-width: 980px) { .hero-media { aspect-ratio: 3/2; max-height: none; } }
+
+  .step-tab { flex: 1 1 200px; display: flex; align-items: center; gap: 10px; padding: 18px; border-right: 1px solid rgba(239,233,222,.18); cursor: pointer; background: transparent; text-align: left; color: rgba(239,233,222,.62); transition: background .16s, color .16s; border-top: 2px solid transparent; }
+  .step-tab:last-child { border-right: 0; }
+  .step-tab.active { background: rgba(216,65,47,.14); color: #EFE9DE; border-top-color: #D8412F; }
+
+  .card-btn { text-align: left; padding: 20px; cursor: pointer; transition: all .16s cubic-bezier(.2,.8,.2,1); border: 1px solid rgba(239,233,222,.2); background: transparent; color: #EFE9DE; }
+  .card-btn.active { border-color: #D8412F; background: rgba(216,65,47,.12); }
+
+  .pill { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; padding: 11px 15px; cursor: pointer; transition: all .16s cubic-bezier(.2,.8,.2,1); border-radius: 999px; border: 1px solid rgba(239,233,222,.26); background: transparent; color: #EFE9DE; }
+  .pill.active { border-color: #D8412F; background: #D8412F; color: #EFE9DE; }
+  .pill-dark { border: 1px solid rgba(16,17,20,.3); color: #101114; }
+  .pill-dark.active { border-color: #101114; background: #101114; color: #EFE9DE; }
+
+  .time-slot { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .06em; padding: 13px 14px; border: 1px solid rgba(239,233,222,.22); background: transparent; color: #EFE9DE; cursor: pointer; transition: all .14s cubic-bezier(.2,.8,.2,1); }
+  .time-slot.active { border-color: #D8412F; background: #D8412F; color: #EFE9DE; }
+  .time-slot.taken { color: rgba(239,233,222,.28); text-decoration: line-through; cursor: not-allowed; }
+
+  .svc-row { padding: clamp(15px,1.7vw,24px) 0; border-bottom: 1px solid rgba(16,17,20,.18); cursor: pointer; opacity: .5; transition: opacity .2s cubic-bezier(.2,.8,.2,1), padding-left .2s cubic-bezier(.2,.8,.2,1); }
+  .svc-row.active { opacity: 1; padding-left: 10px; }
+  .svc-book-btn { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; padding: 10px 13px; margin-left: auto; white-space: nowrap; cursor: pointer; transition: all .16s cubic-bezier(.2,.8,.2,1); background: transparent; color: #101114; border: 1px solid #101114; }
+  .svc-row.active .svc-book-btn { background: #D8412F; color: #EFE9DE; border-color: #D8412F; }
+  .svc-img-layer { position: absolute; inset: 0; opacity: 0; transition: opacity .35s cubic-bezier(.2,.8,.2,1); pointer-events: none; }
+  .svc-img-layer.active { opacity: 1; pointer-events: auto; }
+  .svc-panel { position: relative; overflow: hidden; background: #E2DBCC; aspect-ratio: 3/4; }
+  @media (max-width: 980px) { .svc-panel { aspect-ratio: 16/9; } }
+
+  .barber-card { flex: 0 0 auto; width: clamp(255px,26vw,360px); scroll-snap-align: start; transition: transform .25s cubic-bezier(.2,.8,.2,1); }
+  .barber-card.hovered { transform: translateY(-6px); }
+  .barber-card .portrait { position: relative; aspect-ratio: 3/4; background: #17181C; overflow: hidden; }
+  .barber-book-btn { width: 100%; margin-top: 14px; font-family: Oswald, 'Arial Narrow', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: .08em; text-transform: uppercase; padding: 15px 12px; cursor: pointer; transition: all .16s cubic-bezier(.2,.8,.2,1); background: transparent; color: #EFE9DE; border: 1px solid rgba(239,233,222,.3); }
+  .barber-card.hovered .barber-book-btn { background: #D8412F; border-color: #D8412F; }
+  .work-thumb { flex: 1; background: #17181C; overflow: hidden; }
+
+  .gallery-item { position: relative; margin: 0; background: #17181C; overflow: hidden; grid-column: span 1; aspect-ratio: 4/5; }
+  .gallery-item.wide { grid-column: span 2; aspect-ratio: 16/11; }
+  @media (max-width: 820px) { .gallery-item.wide { grid-column: span 1 !important; aspect-ratio: 4/5 !important; } }
+  .gallery-book-btn { pointer-events: auto; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; background: #D8412F; color: #EFE9DE; padding: 9px 11px; white-space: nowrap; border: 0; cursor: pointer; }
+  .gallery-book-btn:hover { background: #EFE9DE; color: #101114; }
+
+  .ba-box { position: relative; width: 100%; aspect-ratio: 16/9; min-height: 280px; background: #E2DBCC; overflow: hidden; cursor: ew-resize; touch-action: none; user-select: none; }
+  .ba-handle { position: absolute; top: 0; bottom: 0; width: 2px; background: #D8412F; display: flex; align-items: center; justify-content: center; transform: translateX(-1px); pointer-events: none; }
+  .ba-handle-dot { width: 52px; height: 52px; background: #D8412F; color: #EFE9DE; display: flex; align-items: center; justify-content: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; box-shadow: 0 4px 20px rgba(16,17,20,.35); }
+
+  .rev-dot { width: 10px; height: 10px; border-radius: 999px; cursor: pointer; background: rgba(239,233,222,.25); transition: all .2s cubic-bezier(.2,.8,.2,1); border: 0; }
+  .rev-dot.active { width: 26px; background: #D8412F; }
+  .rev-arrow { width: 46px; height: 46px; border: 1px solid rgba(239,233,222,.28); display: flex; align-items: center; justify-content: center; background: none; color: #EFE9DE; cursor: pointer; }
+  .rev-arrow:hover { border-color: #D8412F; color: #D8412F; }
+
+  .mobilebar { display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 70; gap: 8px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); background: rgba(16,17,20,.96); backdrop-filter: blur(14px); border-top: 1px solid rgba(239,233,222,.18); }
+  @media (max-width: 819px) {
+    .mobilebar { display: flex !important; }
+    body { padding-bottom: 76px; }
+    /* The mobile bottom bar (Call/Map/Book) is the mobile nav — the desktop header nav has
+       no wrap behavior and overflows off-screen below ~820px, so it steps aside here. */
+    header.site nav[aria-label="Primary"], header.site .navphone, header.site a.btn-acc { display: none !important; }
+    header.site > div { gap: 12px; }
+  }
+
+  .match-book-btn:hover { transform: translateY(-2px); }
+</style>
+</head>
+<body>
+
+<div style="position:relative;background:#101114;min-height:100vh">
+
+  <header class="site" id="site-header">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px);height:clamp(66px,7vw,86px);display:flex;align-items:center;gap:24px">
+      <a href="#top" style="flex:0 0 auto;display:flex;align-items:center">
+        <img src="assets/logo-white.png" alt="Mr. Home Run Barber Shop" style="height:clamp(38px,4.2vw,52px);width:auto;display:block">
+      </a>
+      <nav aria-label="Primary" class="mono" style="display:flex;gap:clamp(12px,1.8vw,26px);margin-left:auto;font-size:11px;letter-spacing:.14em;text-transform:uppercase">
+        <a href="#services" class="navlink">Services</a>
+        <a href="#barbers" class="navlink">Barbers</a>
+        <a href="#work" class="navlink">Our Work</a>
+        <a href="#reviews" class="navlink">Reviews</a>
+        <a href="#visit" class="navlink">Visit</a>
+      </nav>
+      <div style="display:flex;align-items:center;gap:9px;margin-left:auto">
+        <a href="tel:+14044277441" class="mono navphone" style="font-size:11px;letter-spacing:.12em;padding:11px 14px;border:1px solid rgba(239,233,222,.28)">(404) 427-7441</a>
+        <a href="#book" class="sweep osw btn-acc" style="font-size:15px;letter-spacing:.1em;text-transform:uppercase;background:#D8412F;color:#EFE9DE;padding:14px 20px;display:inline-block">Book now</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="top" style="position:relative;padding:clamp(96px,11vw,128px) 0 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <div class="mono" style="display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(239,233,222,.62)">
+        <span style="width:7px;height:7px;background:#D8412F;border-radius:50%;animation:mh-pulse 2.4s ease-in-out infinite"></span>
+        <span id="open-label"></span>
+        <span style="opacity:.4">/</span>
+        <span>5600 Buford Hwy NE, Doraville</span>
+      </div>
+
+      <h1 class="osw" style="font-size:clamp(54px,12vw,196px);line-height:.88;letter-spacing:-.005em;text-transform:uppercase;margin-top:clamp(14px,1.8vw,22px)">
+        <span style="display:block">Every seat</span>
+        <span style="display:block">is <span class="acc">home plate.</span></span>
+      </h1>
+
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(16px,2.4vw,36px);align-items:flex-end;justify-content:space-between;margin-top:clamp(18px,2.2vw,28px);padding-bottom:20px;border-bottom:2px solid rgba(239,233,222,.22)">
+        <p style="max-width:44ch;font-size:clamp(15px,1.15vw,18px);line-height:1.55;color:rgba(239,233,222,.72)">
+          Fades, tapers, scissor work and beard detail on Buford Highway. Thirty reviews, not one below five stars — sit down and see why.
+        </p>
+        <div style="display:flex;flex-wrap:wrap;gap:11px">
+          <a href="#book" class="sweep osw btn-acc-lg" style="font-size:clamp(20px,2vw,28px);letter-spacing:.06em;text-transform:uppercase;background:#D8412F;color:#EFE9DE;padding:clamp(15px,1.4vw,19px) clamp(24px,2.4vw,34px);display:inline-flex;gap:14px;align-items:center">Book a cut <span style="font-family:'Instrument Sans',sans-serif;font-size:.7em">→</span></a>
+          <a href="#barbers" class="osw btn-outline-lg" style="font-size:clamp(20px,2vw,28px);letter-spacing:.06em;text-transform:uppercase;border:2px solid rgba(239,233,222,.3);padding:clamp(15px,1.4vw,19px) clamp(22px,2.2vw,30px);display:inline-flex;align-items:center">Meet the barbers</a>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(10px,1.2vw,16px);margin-top:clamp(16px,2vw,24px)">
+        <div style="flex:3 1 460px;min-width:min(100%,300px)">
+          <div class="hero-media">
+            <div class="ph-tile"><div class="cap"><span>Hero — fade in progress, shot tight over the shoulder</span></div></div>
+            <div class="mono" style="position:absolute;left:0;bottom:0;background:#D8412F;color:#EFE9DE;padding:10px 14px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;pointer-events:none">Good for kids · Restroom on site</div>
+          </div>
+        </div>
+        <div style="flex:1 1 240px;min-width:min(100%,220px);display:flex;flex-direction:column;gap:clamp(10px,1.2vw,16px)">
+          <div style="border:2px solid rgba(239,233,222,.22);padding:clamp(14px,1.6vw,20px)">
+            <div style="display:flex;align-items:baseline;gap:9px">
+              <span class="osw" style="font-size:clamp(42px,4.4vw,64px);line-height:.85">5.0</span>
+              <span class="acc" style="font-size:13px;letter-spacing:.1em">★★★★★</span>
+            </div>
+            <a href="https://www.google.com/search?q=Mr.Homerun+Barbershop+Doraville" target="_blank" rel="noopener" class="mono" style="display:block;margin-top:10px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,233,222,.6);text-decoration:underline;text-underline-offset:3px">30 Google reviews</a>
+          </div>
+          <div style="border:2px solid rgba(239,233,222,.22);padding:clamp(14px,1.6vw,20px);flex:1 1 auto">
+            <div class="mono" style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(239,233,222,.6)">Next chair open</div>
+            <div class="osw acc" id="hero-next" style="font-size:clamp(28px,3vw,44px);line-height:1;margin-top:8px"></div>
+            <div class="mono" id="today-line" style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,233,222,.6);margin-top:10px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:clamp(30px,3.6vw,50px);border-top:2px solid rgba(239,233,222,.22);border-bottom:2px solid rgba(239,233,222,.22);overflow:hidden;padding:13px 0">
+      <div class="mono" style="display:flex;width:max-content;animation:mh-ticker 42s linear infinite;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(239,233,222,.55)">
+        <div style="display:flex;gap:32px;padding-right:32px">
+          <span>Skin fades</span><span class="acc">◆</span><span>Tapers</span><span class="acc">◆</span><span>Scissor work</span><span class="acc">◆</span><span>Beard detail</span><span class="acc">◆</span><span>Kids cuts</span><span class="acc">◆</span><span>5600 Buford Hwy NE #106</span><span class="acc">◆</span><span>Open until 8:30 PM</span><span class="acc">◆</span>
+        </div>
+        <div style="display:flex;gap:32px;padding-right:32px" aria-hidden="true">
+          <span>Skin fades</span><span class="acc">◆</span><span>Tapers</span><span class="acc">◆</span><span>Scissor work</span><span class="acc">◆</span><span>Beard detail</span><span class="acc">◆</span><span>Kids cuts</span><span class="acc">◆</span><span>5600 Buford Hwy NE #106</span><span class="acc">◆</span><span>Open until 8:30 PM</span><span class="acc">◆</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" style="padding:clamp(52px,6.5vw,96px) 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;justify-content:space-between">
+        <h2 class="osw" data-reveal style="font-size:clamp(34px,5.2vw,78px);line-height:.94;text-transform:uppercase;max-width:18ch">What are we getting you right?</h2>
+        <div class="mono" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(239,233,222,.55);max-width:26ch;line-height:1.7">Three taps. No account, no forms.</div>
+      </div>
+
+      <div style="margin-top:clamp(24px,3vw,42px);border:2px solid rgba(239,233,222,.22);background:#17181C">
+        <div id="step-tabs" style="display:flex;flex-wrap:wrap;border-bottom:2px solid rgba(239,233,222,.22)"></div>
+        <div id="step-panel" style="padding:clamp(18px,2.4vw,34px)"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" style="background:#EFE9DE;color:#101114;padding:clamp(60px,7.5vw,116px) 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;border-bottom:2px solid #101114;padding-bottom:18px">
+        <h2 class="osw" data-reveal style="font-size:clamp(42px,7vw,104px);line-height:.92;text-transform:uppercase">The lineup</h2>
+        <div class="mono" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.6">Cash / card / tap · Kids welcome</div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(22px,4vw,60px);margin-top:clamp(22px,3vw,40px)">
+        <div id="svc-rows" style="flex:1 1 520px;min-width:min(100%,420px)"></div>
+
+        <div style="flex:1 1 380px;min-width:min(100%,320px);position:sticky;top:110px;align-self:flex-start">
+          <div class="svc-panel" id="svc-image-stack"></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px" class="mono">
+            <span id="svc-caption" style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.6"></span>
+            <span id="svc-counter" style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.6"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="barbers" style="padding:clamp(60px,7.5vw,116px) 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+        <h2 class="osw" data-reveal style="font-size:clamp(42px,7vw,104px);line-height:.92;text-transform:uppercase">The roster</h2>
+        <p class="mono" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(239,233,222,.5);max-width:30ch;line-height:1.8">You are not booking a shop. You are booking a pair of hands.</p>
+      </div>
+    </div>
+
+    <div id="barber-cards" style="display:flex;gap:clamp(12px,1.4vw,18px);overflow-x:auto;scroll-snap-type:x mandatory;padding:clamp(22px,3vw,40px) clamp(16px,3vw,40px)"></div>
+  </section>
+
+  <section style="background:#D8412F;color:#EFE9DE;padding:clamp(56px,7vw,104px) 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,60px)">
+        <div style="flex:1 1 440px;min-width:min(100%,340px)">
+          <div class="mono" style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.75">Find your barber · 5 seconds</div>
+          <h2 class="osw" style="font-size:clamp(38px,6vw,88px);line-height:.94;text-transform:uppercase;margin-top:12px">What are you looking for?</h2>
+          <div id="want-pills" style="display:flex;flex-wrap:wrap;gap:9px;margin-top:clamp(20px,2.4vw,32px)"></div>
+        </div>
+
+        <div style="flex:1 1 400px;min-width:min(100%,320px)">
+          <div id="match-panel" style="background:#101114;padding:clamp(16px,1.8vw,22px);height:100%"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" style="padding:clamp(60px,7.5vw,116px) 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap">
+        <h2 class="osw" data-reveal style="font-size:clamp(42px,7vw,104px);line-height:.92;text-transform:uppercase">The tape</h2>
+        <div id="filter-pills" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+      </div>
+
+      <div id="gallery-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:clamp(8px,1vw,14px);margin-top:clamp(22px,3vw,38px)"></div>
+    </div>
+  </section>
+
+  <section style="background:#EFE9DE;color:#101114;padding:clamp(60px,7.5vw,116px) 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:clamp(18px,2.4vw,32px)">
+        <h2 class="osw" data-reveal style="font-size:clamp(36px,5.8vw,88px);line-height:.94;text-transform:uppercase;max-width:20ch">Drag it. That is 45 minutes.</h2>
+        <div class="mono" style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.55">Before ←→ After</div>
+      </div>
+
+      <div class="ba-box" id="ba-box">
+        <div style="position:absolute;inset:0"><div class="ph-tile"><div class="cap"><span>After — mid fade + textured top, finished</span></div></div></div>
+        <div id="ba-clip" style="position:absolute;inset:0">
+          <div class="ph-tile"><div class="cap"><span>Before — grown out, same angle</span></div></div>
+        </div>
+        <div class="ba-handle" id="ba-handle"><div class="ba-handle-dot">↔</div></div>
+        <div class="mono" style="position:absolute;left:16px;top:16px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;background:rgba(16,17,20,.75);color:#EFE9DE;padding:7px 10px;pointer-events:none">Before</div>
+        <div class="mono" style="position:absolute;right:16px;top:16px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;background:#D8412F;color:#EFE9DE;padding:7px 10px;pointer-events:none">After</div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end;justify-content:space-between;margin-top:20px;border-top:2px solid #101114;padding-top:18px">
+        <div>
+          <h3 class="osw" style="font-size:clamp(24px,3vw,42px);line-height:1.04;text-transform:uppercase">Mid fade + textured top</h3>
+          <div class="mono" style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.6;margin-top:8px">45 min · $45</div>
+        </div>
+        <button type="button" id="book-this-look" class="osw" style="font-size:clamp(18px,1.8vw,25px);letter-spacing:.06em;text-transform:uppercase;background:#101114;color:#EFE9DE;padding:17px 26px;transition:transform .16s,background .16s">Book this look →</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" style="padding:clamp(60px,7.5vw,116px) 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,48px);align-items:flex-end;border-bottom:2px solid rgba(239,233,222,.22);padding-bottom:22px">
+        <div style="display:flex;align-items:flex-end;gap:16px">
+          <span class="osw acc" style="font-size:clamp(58px,9vw,130px);line-height:.86">5.0</span>
+          <div style="padding-bottom:8px">
+            <div class="acc" style="font-size:clamp(14px,1.4vw,18px);letter-spacing:.12em">★★★★★</div>
+            <div class="mono" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,233,222,.6);margin-top:8px">Based on 30 Google reviews</div>
+          </div>
+        </div>
+        <a href="https://www.google.com/search?q=Mr.Homerun+Barbershop+Doraville" target="_blank" rel="noopener" class="mono" style="margin-left:auto;font-size:11px;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(239,233,222,.28);padding:14px 18px">Read our reviews →</a>
+      </div>
+
+      <blockquote style="margin:clamp(28px,3.6vw,56px) 0 0">
+        <p class="osw" id="rev-text" style="max-width:15em;font-size:clamp(32px,6vw,96px);line-height:1.02;text-transform:uppercase"></p>
+        <footer class="mono" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:clamp(18px,2.2vw,32px);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,233,222,.6)">
+          <span class="acc" style="letter-spacing:.1em">★★★★★</span>
+          <span id="rev-name"></span>
+          <span style="opacity:.6" id="rev-meta"></span>
+        </footer>
+      </blockquote>
+
+      <div style="display:flex;gap:10px;align-items:center;margin-top:clamp(24px,2.8vw,40px)">
+        <button type="button" id="rev-prev" aria-label="Previous review" class="rev-arrow">←</button>
+        <button type="button" id="rev-next" aria-label="Next review" class="rev-arrow">→</button>
+        <div id="rev-dots" style="display:flex;gap:6px;margin-left:14px"></div>
+        <span class="mono" id="rev-counter" style="margin-left:auto;font-size:11px;letter-spacing:.14em;color:rgba(239,233,222,.4)"></span>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#17181C;padding:clamp(60px,7.5vw,110px) 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,56px)">
+        <div style="flex:1 1 340px;min-width:min(100%,300px)">
+          <h2 class="osw" data-reveal style="font-size:clamp(38px,5.4vw,80px);line-height:.96;text-transform:uppercase">First time?<br><span class="acc">We got you.</span></h2>
+          <p style="font-size:clamp(14px,1.05vw,17px);line-height:1.6;color:rgba(239,233,222,.7);margin-top:18px;max-width:38ch">No consultation fee, no pressure. Tell your barber what you want, or show a photo from the gallery and let them read your hair.</p>
+          <a href="#book" class="sweep osw btn-acc-lg" style="display:inline-block;margin-top:24px;font-size:clamp(18px,1.8vw,25px);letter-spacing:.06em;text-transform:uppercase;background:#D8412F;color:#EFE9DE;padding:17px 26px">Book your first cut →</a>
+        </div>
+        <ol style="flex:1 1 420px;min-width:min(100%,320px);list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:1px;background:rgba(239,233,222,.18)">
+          <li style="background:#17181C;padding:22px">
+            <div class="mono acc" style="font-size:11px;letter-spacing:.18em">01</div>
+            <div class="osw" style="font-size:clamp(19px,1.8vw,24px);text-transform:uppercase;line-height:1.1;margin-top:14px">Choose your service</div>
+            <p style="font-size:12.5px;line-height:1.55;color:rgba(239,233,222,.6);margin-top:8px">Prices are on the menu. No surprises at the register.</p>
+          </li>
+          <li style="background:#17181C;padding:22px">
+            <div class="mono acc" style="font-size:11px;letter-spacing:.18em">02</div>
+            <div class="osw" style="font-size:clamp(19px,1.8vw,24px);text-transform:uppercase;line-height:1.1;margin-top:14px">Choose your barber</div>
+            <p style="font-size:12.5px;line-height:1.55;color:rgba(239,233,222,.6);margin-top:8px">Not sure? Use Find Your Barber and we will point you.</p>
+          </li>
+          <li style="background:#17181C;padding:22px">
+            <div class="mono acc" style="font-size:11px;letter-spacing:.18em">03</div>
+            <div class="osw" style="font-size:clamp(19px,1.8vw,24px);text-transform:uppercase;line-height:1.1;margin-top:14px">Pick your time</div>
+            <p style="font-size:12.5px;line-height:1.55;color:rgba(239,233,222,.6);margin-top:8px">Open until 8:30 PM Monday through Saturday.</p>
+          </li>
+          <li style="background:#17181C;padding:22px">
+            <div class="mono acc" style="font-size:11px;letter-spacing:.18em">04</div>
+            <div class="osw" style="font-size:clamp(19px,1.8vw,24px);text-transform:uppercase;line-height:1.1;margin-top:14px">Show up</div>
+            <p style="font-size:12.5px;line-height:1.55;color:rgba(239,233,222,.6);margin-top:8px">Suite #106 in the Buford Highway plaza. Lot parking.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:clamp(48px,6vw,90px) 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <h2 class="osw" data-reveal style="font-size:clamp(42px,8vw,132px);line-height:.92;text-transform:uppercase;max-width:16ch">More than a haircut.</h2>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(8px,1vw,14px);margin:clamp(24px,3vw,42px) auto 0;padding:0 clamp(16px,3vw,40px);max-width:1600px">
+      <div style="flex:2 1 520px;min-width:min(100%,320px);aspect-ratio:16/10;background:#17181C;overflow:hidden">
+        <div class="ph-tile"><div class="cap"><span>Shop — wide interior, chairs and stations</span></div></div>
+      </div>
+      <div style="flex:1 1 260px;min-width:min(100%,240px);display:flex;flex-direction:column;gap:clamp(8px,1vw,14px)">
+        <div style="flex:1;min-height:150px;background:#17181C"><div class="ph-tile"><div class="cap"><span>Barber mid-cut, hands in frame</span></div></div></div>
+        <div style="flex:1;min-height:150px;background:#17181C"><div class="ph-tile"><div class="cap"><span>Storefront on Buford Hwy</span></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="visit" style="background:#EFE9DE;color:#101114;padding:clamp(60px,7.5vw,116px) 0">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px)">
+      <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,60px)">
+        <div style="flex:1 1 420px;min-width:min(100%,340px)">
+          <div class="mono" style="display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.18em;text-transform:uppercase">
+            <span style="width:7px;height:7px;background:#D8412F;border-radius:50%;animation:mh-pulse 2.4s ease-in-out infinite"></span>
+            <span id="open-label-2"></span>
+          </div>
+          <h2 class="osw" style="font-size:clamp(40px,6.4vw,96px);line-height:.96;text-transform:uppercase;margin-top:12px">Come<br>through.</h2>
+          <address style="font-style:normal;margin-top:22px;font-size:clamp(16px,1.4vw,21px);line-height:1.5">
+            5600 Buford Hwy NE, Suite 106<br>Doraville, GA 30340
+            <div class="mono" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.6;margin-top:10px">Free lot parking · Good for kids · Restroom</div>
+          </address>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:24px">
+            <a href="https://maps.google.com/?q=5600+Buford+Hwy+NE+%23106+Doraville+GA+30340" target="_blank" rel="noopener" class="osw btn-outline-lg" style="font-size:17px;letter-spacing:.08em;text-transform:uppercase;border:2px solid #101114;padding:14px 20px">Get directions</a>
+            <a href="tel:+14044277441" class="osw btn-outline-lg" style="font-size:17px;letter-spacing:.08em;text-transform:uppercase;border:2px solid #101114;padding:14px 20px">Call shop</a>
+            <a href="#book" class="osw" style="font-size:17px;letter-spacing:.08em;text-transform:uppercase;background:#D8412F;color:#EFE9DE;padding:14px 20px;transition:background .16s" onmouseover="this.style.background='#101114'" onmouseout="this.style.background='#D8412F'">Book now</a>
+          </div>
+        </div>
+
+        <div style="flex:1 1 300px;min-width:min(100%,280px)">
+          <div class="mono" style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.55;padding-bottom:12px;border-bottom:2px solid #101114">Hours</div>
+          <div id="hours-rows"></div>
+        </div>
+
+        <div style="flex:1 1 300px;min-width:min(100%,280px);position:relative;min-height:280px;background:#E2DBCC;overflow:hidden">
+          <iframe title="Map to Mr. Home Run Barber Shop, 5600 Buford Hwy NE, Doraville GA" src="https://maps.google.com/maps?q=5600%20Buford%20Hwy%20NE%20%23106%2C%20Doraville%2C%20GA%2030340&z=15&output=embed" loading="lazy" style="width:100%;height:100%;min-height:280px;border:0;display:block;position:absolute;inset:0;filter:grayscale(0.15)"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="padding:clamp(48px,6vw,84px) 0 clamp(96px,10vw,56px);border-top:2px solid rgba(239,233,222,.22)">
+    <div style="max-width:1600px;margin:0 auto;padding:0 clamp(16px,3vw,40px);display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,60px);align-items:flex-end;justify-content:space-between">
+      <img src="assets/logo-white.png" alt="Mr. Home Run Barber Shop" style="width:clamp(230px,36vw,520px);height:auto;display:block;animation:mh-float 9s ease-in-out infinite">
+      <div class="mono" style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(239,233,222,.55);line-height:2;text-align:right">
+        <div>Barber shop in Doraville, Georgia</div>
+        <div>5600 Buford Hwy NE #106 · (404) 427-7441</div>
+        <div>Fades · Tapers · Beards · Scissor cuts · Kids cuts</div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="mobilebar">
+    <a href="tel:+14044277441" class="mono" style="flex:0 0 auto;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(239,233,222,.3);padding:15px 14px">Call</a>
+    <a href="https://maps.google.com/?q=5600+Buford+Hwy+NE+%23106+Doraville+GA+30340" target="_blank" rel="noopener" class="mono" style="flex:0 0 auto;font-size:11px;letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(239,233,222,.3);padding:15px 14px">Map</a>
+    <a href="#book" class="osw" style="flex:1 1 auto;text-align:center;font-size:19px;letter-spacing:.08em;text-transform:uppercase;background:#D8412F;color:#EFE9DE;padding:15px 14px">Book a cut</a>
+  </div>
+</div>
+
+<script>
+(function () {
+  function phTile(caption) {
+    return '<div class="ph-tile"><div class="cap"><span>' + caption + '</span></div></div>';
+  }
+
+  var SERVICES = [
+    { num: '01', name: 'Signature Cut', price: '$45', mins: '45 min', desc: 'Skin fades, tapers, scissor work and styling. Hot towel finish.', ph: 'Service — sharp skin fade, side profile' },
+    { num: '02', name: 'Cut + Beard', price: '$60', mins: '60 min', desc: 'Full haircut and beard sculpt, edged and oiled.', ph: 'Service — beard sculpt close-up' },
+    { num: '03', name: 'Lineup', price: '$25', mins: '20 min', desc: 'Clean edges. Sharp finish. In and out.', ph: 'Service — lineup detail, razor edge' },
+    { num: '04', name: 'Kids Cut', price: '$30', mins: '30 min', desc: 'Under 12. Patient hands, no rushing, no tears.', ph: 'Service — kid in the chair, smiling' },
+    { num: '05', name: 'Beard Detail', price: '$25', mins: '25 min', desc: 'Shape, line and condition. Straight razor finish.', ph: 'Service — straight razor beard line' }
+  ];
+  var BARBERS = [
+    { name: 'Luis', spec: 'Skin fades / Tapers / Beard detail', years: '12 yrs cutting', rating: '5.0', tags: ['fade', 'taper', 'beard', 'first'], ph: 'Portrait — Luis at his station' },
+    { name: 'Kevin', spec: 'Skin fades / Textured and curly hair', years: '7 yrs cutting', rating: '5.0', tags: ['fade', 'curly', 'textured'], ph: 'Portrait — Kevin at his station' },
+    { name: 'Andres', spec: 'Scissor work / Long hair / Styling', years: '9 yrs cutting', rating: '4.9', tags: ['scissor', 'long', 'textured'], ph: 'Portrait — Andres at his station' },
+    { name: 'Sam', spec: 'Kids cuts / Classic tapers / Line-ups', years: '5 yrs cutting', rating: '5.0', tags: ['taper', 'kids', 'first', 'beard'], ph: 'Portrait — Sam at his station' }
+  ];
+  var WANTS = [
+    { label: 'Skin Fade', tag: 'fade', why: 'Skin fades blended tight, no ghost lines.' },
+    { label: 'Taper', tag: 'taper', why: 'Clean tapers and classic shapes.' },
+    { label: 'Scissor Cut', tag: 'scissor', why: 'Scissor-over-comb work and soft layering.' },
+    { label: 'Beard', tag: 'beard', why: 'Beard shaping with straight-razor lines.' },
+    { label: 'Curly Hair', tag: 'curly', why: 'Curl patterns and textured tops.' },
+    { label: 'Long Hair', tag: 'long', why: 'Length kept, weight removed, styled.' },
+    { label: 'First Time Here', tag: 'first', why: 'Walks you through it and takes their time.' }
+  ];
+  var SHOTS = [
+    { title: 'Mid fade', by: 'Luis', tag: 'FADES', span: 2, ph: 'Work — mid fade' },
+    { title: 'Bald fade', by: 'Kevin', tag: 'FADES', span: 1, ph: 'Work — bald fade' },
+    { title: 'Beard sculpt', by: 'Luis', tag: 'BEARDS', span: 1, ph: 'Work — beard sculpt' },
+    { title: 'Low taper', by: 'Sam', tag: 'TAPERS', span: 1, ph: 'Work — low taper' },
+    { title: 'Textured top', by: 'Kevin', tag: 'TEXTURED', span: 2, ph: 'Work — textured top' },
+    { title: 'Scissor crop', by: 'Andres', tag: 'SCISSOR', span: 1, ph: 'Work — scissor crop' },
+    { title: 'Taper + line', by: 'Sam', tag: 'TAPERS', span: 1, ph: 'Work — taper and lineup' },
+    { title: 'Curly fade', by: 'Kevin', tag: 'TEXTURED', span: 1, ph: 'Work — curly fade' },
+    { title: 'Full beard trim', by: 'Luis', tag: 'BEARDS', span: 1, ph: 'Work — full beard trim' },
+    { title: 'Long layers', by: 'Andres', tag: 'SCISSOR', span: 2, ph: 'Work — long layered cut' }
+  ];
+  var FILTERS = ['ALL', 'FADES', 'TAPERS', 'BEARDS', 'TEXTURED', 'SCISSOR'];
+  var REVIEWS = [
+    { text: 'Sharpest lineup on Buford Highway. Been coming for two years.', name: 'Daniel R.', meta: 'Google review · 2 weeks ago' },
+    { text: 'Took my son in on a Saturday. Sam had him laughing the whole cut.', name: 'Yvette M.', meta: 'Google review · 1 month ago' },
+    { text: 'Walked in at 6, out by 6:40 looking brand new.', name: 'Chris B.', meta: 'Google review · 3 weeks ago' },
+    { text: 'Luis actually listens. Got exactly what I asked for, twice now.', name: 'Andre W.', meta: 'Google review · 2 months ago' }
+  ];
+  var SLOTS = ['10:15 AM', '11:00 AM', '11:45 AM', '12:30 PM', '1:15 PM', '2:00 PM', '3:30 PM', '4:15 PM', '5:00 PM', '6:30 PM', '7:15 PM', '8:00 PM'];
+  var FIRST_FREE = [6, 2, 8, 4];
+  var DAYS = ['Today', 'Tomorrow', 'This week'];
+  var HOURS = [
+    { day: 'Monday', time: '10:00 AM — 8:30 PM' }, { day: 'Tuesday', time: '10:00 AM — 8:30 PM' },
+    { day: 'Wednesday', time: '10:00 AM — 8:30 PM' }, { day: 'Thursday', time: '10:00 AM — 8:30 PM' },
+    { day: 'Friday', time: '10:00 AM — 8:30 PM' }, { day: 'Saturday', time: '10:00 AM — 8:30 PM' },
+    { day: 'Sunday', time: '11:00 AM — 8:00 PM' }
+  ];
+  var DAYNAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  var state = { svc: 0, hoverBarber: -1, want: null, filter: 'ALL', ba: 50, dragging: false,
+    step: 0, bSvc: null, bBarber: null, bDay: 0, bTime: null, rev: 0 };
+
+  function taken(day, barber, i) {
+    if (day === 0 && i === FIRST_FREE[barber]) return false;
+    if (day === 0 && i < FIRST_FREE[barber]) return true;
+    return ((i * 3 + barber * 2 + day * 7) % 5) < 2;
+  }
+  function nextFor(bi) { return 'Today ' + SLOTS[FIRST_FREE[bi]]; }
+  function jump(id) { var el = document.getElementById(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' }); }
+  function matchIdx() {
+    var w = state.want;
+    if (w == null) return 0;
+    var tag = WANTS[w].tag;
+    var i = BARBERS.findIndex(function (b) { return b.tags[0] === tag; });
+    if (i >= 0) return i;
+    i = BARBERS.findIndex(function (b) { return b.tags.indexOf(tag) >= 0; });
+    return Math.max(0, i);
+  }
+
+  function startBooking(svcIdx, barberIdx) {
+    if (svcIdx != null) state.bSvc = svcIdx;
+    if (barberIdx != null) state.bBarber = barberIdx;
+    if (state.bSvc == null) state.step = 0;
+    else if (state.bBarber == null) state.step = 1;
+    else state.step = 2;
+    renderSteps();
+    jump('book');
+  }
+
+  // ---- Hero / status ----
+  (function () {
+    var now = new Date(), dow = now.getDay(), mins = now.getHours() * 60 + now.getMinutes();
+    var open = dow === 0 ? (mins >= 660 && mins < 1200) : (mins >= 600 && mins < 1230);
+    var openLabel = open ? 'Open now until ' + (dow === 0 ? '8:00 PM' : '8:30 PM') : 'Closed — opens ' + (dow === 6 ? 'Sunday 11:00 AM' : '10:00 AM');
+    document.getElementById('open-label').textContent = openLabel;
+    document.getElementById('open-label-2').textContent = openLabel;
+    document.getElementById('hero-next').textContent = SLOTS[FIRST_FREE[0]];
+    document.getElementById('today-line').textContent = DAYNAMES[dow] + ' · ' + (dow === 0 ? '11:00 AM — 8:00 PM' : '10:00 AM — 8:30 PM');
+  })();
+
+  // ---- Nav scroll ----
+  var header = document.getElementById('site-header');
+  window.addEventListener('scroll', function () { header.classList.toggle('scrolled', window.scrollY > 40); }, { passive: true });
+
+  // ---- Reveal on scroll ----
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var els = document.querySelectorAll('[data-reveal]');
+    if (reduce) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+  // ---- Booking widget ----
+  var stepTabsEl = document.getElementById('step-tabs');
+  var stepPanelEl = document.getElementById('step-panel');
+
+  function renderSteps() {
+    var bIdx = state.bBarber == null ? 0 : state.bBarber;
+    var labels = [
+      { num: '01', label: 'Service', value: state.bSvc == null ? '' : SERVICES[state.bSvc].name },
+      { num: '02', label: 'Barber', value: state.bBarber == null ? '' : BARBERS[state.bBarber].name },
+      { num: '03', label: 'Time', value: state.bTime || '' },
+      { num: '04', label: 'Confirm', value: '' }
+    ];
+    stepTabsEl.innerHTML = '';
+    labels.forEach(function (s, i) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'step-tab' + (state.step === i ? ' active' : '');
+      btn.innerHTML = '<span class="mono" style="font-size:10px;letter-spacing:.18em;opacity:.6">' + s.num + '</span>' +
+        '<span class="osw" style="font-size:clamp(14px,1.3vw,18px);letter-spacing:.08em;text-transform:uppercase">' + s.label + '</span>' +
+        '<span class="mono" style="font-size:10px;letter-spacing:.1em;margin-left:auto;color:#F0705F">' + s.value + '</span>';
+      btn.addEventListener('click', function () { state.step = i; renderSteps(); });
+      stepTabsEl.appendChild(btn);
+    });
+
+    stepPanelEl.innerHTML = '';
+    if (state.step === 0) {
+      var grid = document.createElement('div');
+      grid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px';
+      SERVICES.forEach(function (x, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'card-btn' + (state.bSvc === i ? ' active' : '');
+        b.innerHTML = '<span class="mono" style="font-size:10px;letter-spacing:.18em;opacity:.55">' + x.num + '</span>' +
+          '<span class="osw" style="font-size:clamp(20px,1.9vw,26px);line-height:1.05;text-transform:uppercase;margin-top:10px;display:block">' + x.name + '</span>' +
+          '<span class="mono" style="display:block;margin-top:9px;font-size:11px;letter-spacing:.08em;opacity:.72">' + x.price + ' · ' + x.mins + '</span>';
+        b.addEventListener('click', function () { state.bSvc = i; state.step = 1; renderSteps(); });
+        grid.appendChild(b);
+      });
+      stepPanelEl.appendChild(grid);
+    } else if (state.step === 1) {
+      var grid2 = document.createElement('div');
+      grid2.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px';
+      BARBERS.forEach(function (x, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'card-btn' + (state.bBarber === i ? ' active' : '');
+        b.innerHTML = '<span class="osw" style="font-size:clamp(20px,1.9vw,26px);line-height:1.05;text-transform:uppercase;display:block">' + x.name + '</span>' +
+          '<span style="display:block;margin-top:8px;font-size:12.5px;line-height:1.5;opacity:.72">' + x.spec + '</span>' +
+          '<span class="mono" style="display:block;margin-top:12px;font-size:10px;letter-spacing:.12em;color:#F0705F">Next · ' + nextFor(i) + '</span>';
+        b.addEventListener('click', function () { state.bBarber = i; state.step = 2; renderSteps(); });
+        grid2.appendChild(b);
+      });
+      stepPanelEl.appendChild(grid2);
+    } else if (state.step === 2) {
+      var wrap = document.createElement('div');
+      var dayRow = document.createElement('div');
+      dayRow.style.cssText = 'display:flex;gap:9px;flex-wrap:wrap';
+      DAYS.forEach(function (d, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'pill' + (state.bDay === i ? ' active' : '');
+        b.textContent = d;
+        b.addEventListener('click', function () { state.bDay = i; state.bTime = null; renderSteps(); });
+        dayRow.appendChild(b);
+      });
+      wrap.appendChild(dayRow);
+
+      var timeRow = document.createElement('div');
+      timeRow.style.cssText = 'display:flex;flex-wrap:wrap;gap:7px;margin-top:18px';
+      SLOTS.forEach(function (t, i) {
+        var tk = taken(state.bDay, bIdx, i);
+        var on = state.bTime === t;
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'time-slot' + (on ? ' active' : '') + (tk ? ' taken' : '');
+        b.textContent = t;
+        b.disabled = tk;
+        b.addEventListener('click', function () { if (!tk) { state.bTime = t; state.step = 3; renderSteps(); } });
+        timeRow.appendChild(b);
+      });
+      wrap.appendChild(timeRow);
+
+      var note = document.createElement('div');
+      note.className = 'mono';
+      note.style.cssText = 'font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,233,222,.4);margin-top:16px';
+      note.textContent = 'Struck-through times are already booked';
+      wrap.appendChild(note);
+      stepPanelEl.appendChild(wrap);
+    } else if (state.step === 3) {
+      var box = document.createElement('div');
+      box.style.cssText = 'display:flex;flex-wrap:wrap;gap:clamp(18px,3vw,40px);align-items:center;justify-content:space-between';
+      var svcName = state.bSvc == null ? 'Signature Cut' : SERVICES[state.bSvc].name;
+      var summary = svcName + ' with ' + BARBERS[bIdx].name;
+      var summaryMeta = DAYS[state.bDay] + ' · ' + (state.bTime || SLOTS[FIRST_FREE[bIdx]]) + ' · ' +
+        (state.bSvc == null ? '45 min · $45' : SERVICES[state.bSvc].mins + ' · ' + SERVICES[state.bSvc].price) + ' · 5600 Buford Hwy NE #106';
+      box.innerHTML =
+        '<div>' +
+          '<div class="mono" style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#F0705F">Your chair</div>' +
+          '<div class="osw" style="font-size:clamp(28px,3.4vw,52px);line-height:1.02;text-transform:uppercase;margin-top:10px;max-width:20ch">' + summary + '</div>' +
+          '<div class="mono" style="font-size:11px;letter-spacing:.1em;color:rgba(239,233,222,.6);margin-top:12px">' + summaryMeta + '</div>' +
+        '</div>' +
+        '<div style="display:flex;flex-direction:column;gap:9px">' +
+          '<a href="#visit" class="osw btn-acc" style="font-size:clamp(19px,1.9vw,25px);letter-spacing:.06em;text-transform:uppercase;background:#D8412F;color:#EFE9DE;padding:19px 30px;text-align:center">Confirm appointment →</a>' +
+          '<a href="tel:+14044277441" class="mono navphone" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-align:center;padding:12px;border:1px solid rgba(239,233,222,.26)">or call (404) 427-7441</a>' +
+        '</div>';
+      stepPanelEl.appendChild(box);
+    }
+  }
+  renderSteps();
+
+  // ---- Services menu ----
+  var svcRowsEl = document.getElementById('svc-rows');
+  var svcImgStackEl = document.getElementById('svc-image-stack');
+  var svcCaptionEl = document.getElementById('svc-caption');
+  var svcCounterEl = document.getElementById('svc-counter');
+
+  SERVICES.forEach(function (x, i) {
+    var row = document.createElement('div');
+    row.className = 'svc-row' + (state.svc === i ? ' active' : '');
+    row.innerHTML =
+      '<div style="display:flex;align-items:baseline;gap:clamp(12px,1.6vw,22px)">' +
+        '<span class="mono" style="font-size:11px;letter-spacing:.1em;opacity:.45;padding-top:6px">' + x.num + '</span>' +
+        '<h3 class="osw" style="font-size:clamp(28px,4.2vw,62px);line-height:.98;text-transform:uppercase;flex:1 1 auto">' + x.name + '</h3>' +
+        '<span class="osw" style="font-weight:600;font-size:clamp(22px,2.4vw,38px);line-height:1">' + x.price + '</span>' +
+      '</div>' +
+      '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:10px 0 0 clamp(26px,3.2vw,46px)">' +
+        '<p style="font-size:clamp(13px,1vw,15px);line-height:1.5;opacity:.7;max-width:44ch">' + x.desc + '</p>' +
+        '<span class="mono" style="font-size:11px;letter-spacing:.1em;opacity:.5">' + x.mins + '</span>' +
+        '<button type="button" class="svc-book-btn">Book this →</button>' +
+      '</div>';
+    row.addEventListener('mouseenter', function () { setSvcActive(i); });
+    row.addEventListener('click', function () { setSvcActive(i); });
+    row.querySelector('.svc-book-btn').addEventListener('click', function (e) { e.stopPropagation(); startBooking(i, null); });
+    svcRowsEl.appendChild(row);
+
+    var layer = document.createElement('div');
+    layer.className = 'svc-img-layer' + (state.svc === i ? ' active' : '');
+    layer.innerHTML = phTile(x.ph);
+    svcImgStackEl.appendChild(layer);
+  });
+
+  function setSvcActive(i) {
+    state.svc = i;
+    Array.from(svcRowsEl.children).forEach(function (r, k) { r.classList.toggle('active', k === i); });
+    Array.from(svcImgStackEl.children).forEach(function (l, k) { l.classList.toggle('active', k === i); });
+    svcCaptionEl.textContent = SERVICES[i].name + ' · ' + SERVICES[i].mins;
+    svcCounterEl.textContent = SERVICES[i].num + ' / 05';
+  }
+  setSvcActive(0);
+
+  // ---- Barbers ----
+  var barberCardsEl = document.getElementById('barber-cards');
+  BARBERS.forEach(function (x, i) {
+    var art = document.createElement('article');
+    art.className = 'barber-card';
+    art.innerHTML =
+      '<div class="portrait">' +
+        phTile(x.ph) +
+        '<div style="position:absolute;inset:auto 0 0 0;height:55%;background:linear-gradient(to top,rgba(16,17,20,.92),transparent);pointer-events:none"></div>' +
+        '<div style="position:absolute;left:16px;right:16px;bottom:14px;pointer-events:none">' +
+          '<div class="mono" style="font-size:10px;letter-spacing:.16em;color:#F0705F">' + x.rating + ' ★ · ' + x.years + '</div>' +
+          '<h3 class="osw" style="font-size:clamp(30px,3.4vw,46px);line-height:1;text-transform:uppercase;margin-top:4px">' + x.name + '</h3>' +
+        '</div>' +
+      '</div>' +
+      '<div style="padding:16px;border:2px solid rgba(239,233,222,.18);border-top:0">' +
+        '<div style="font-size:13px;line-height:1.5;color:rgba(239,233,222,.75);min-height:40px">' + x.spec + '</div>' +
+        '<div style="display:flex;gap:6px;margin-top:14px;height:56px">' +
+          '<div class="work-thumb">' + phTile('Work') + '</div>' +
+          '<div class="work-thumb">' + phTile('Work') + '</div>' +
+          '<div class="work-thumb">' + phTile('Work') + '</div>' +
+        '</div>' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px" class="mono">' +
+          '<span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,233,222,.55)">Next available</span>' +
+          '<span style="font-size:10px;letter-spacing:.14em;color:#F0705F">' + nextFor(i).replace('Today ', '') + '</span>' +
+        '</div>' +
+        '<button type="button" class="barber-book-btn">Book with ' + x.name + '</button>' +
+      '</div>';
+    art.addEventListener('mouseenter', function () {
+      state.hoverBarber = i;
+      Array.from(barberCardsEl.children).forEach(function (c, k) { c.classList.toggle('hovered', k === i); });
+    });
+    art.querySelector('.barber-book-btn').addEventListener('click', function () { startBooking(null, i); });
+    barberCardsEl.appendChild(art);
+  });
+
+  // ---- Find your barber quiz ----
+  var wantPillsEl = document.getElementById('want-pills');
+  var matchPanelEl = document.getElementById('match-panel');
+
+  function renderMatch() {
+    if (state.want == null) {
+      matchPanelEl.innerHTML =
+        '<div style="display:flex;flex-direction:column;justify-content:center;height:100%;min-height:200px">' +
+          '<div class="mono" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(239,233,222,.45)">Awaiting your pick</div>' +
+          '<div class="osw" style="font-weight:600;font-size:clamp(24px,2.6vw,38px);line-height:1.06;text-transform:uppercase;margin-top:10px;max-width:22ch">Tap what you want. We name the right hands for it.</div>' +
+        '</div>';
+      return;
+    }
+    var mi = matchIdx();
+    var m = BARBERS[mi];
+    var why = WANTS[state.want].why + ' Also does ' + m.spec.split(' / ').slice(0, 2).join(' and ').toLowerCase() + '.';
+    matchPanelEl.innerHTML =
+      '<div style="display:flex;gap:18px;align-items:stretch">' +
+        '<div style="width:clamp(96px,10vw,140px);flex:0 0 auto;background:#17181C">' + phTile('Portrait') + '</div>' +
+        '<div style="flex:1 1 auto;display:flex;flex-direction:column">' +
+          '<div class="mono" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#F0705F">Your match</div>' +
+          '<div class="osw" style="font-size:clamp(32px,3.8vw,56px);line-height:1;text-transform:uppercase;margin-top:6px">' + m.name + '</div>' +
+          '<div style="font-size:13px;line-height:1.5;color:rgba(239,233,222,.75);margin-top:8px">' + why + '</div>' +
+          '<div class="mono" style="font-size:10px;letter-spacing:.14em;color:rgba(239,233,222,.6);margin-top:10px">' + m.rating + ' ★ · ' + m.years + ' · Next ' + nextFor(mi) + '</div>' +
+          '<button type="button" id="match-book-btn" class="osw match-book-btn" style="margin-top:auto;font-size:16px;letter-spacing:.08em;text-transform:uppercase;background:#D8412F;color:#EFE9DE;padding:14px 18px;text-align:left">Book with ' + m.name + ' →</button>' +
+        '</div>' +
+      '</div>';
+    document.getElementById('match-book-btn').addEventListener('click', function () { startBooking(null, mi); });
+  }
+
+  WANTS.forEach(function (w, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'pill' + (state.want === i ? ' active' : '');
+    b.textContent = w.label;
+    b.addEventListener('click', function () {
+      state.want = state.want === i ? null : i;
+      Array.from(wantPillsEl.children).forEach(function (p, k) { p.classList.toggle('active', k === i && state.want === i); });
+      renderMatch();
+    });
+    wantPillsEl.appendChild(b);
+  });
+  renderMatch();
+
+  // ---- Work gallery ----
+  var filterPillsEl = document.getElementById('filter-pills');
+  var galleryGridEl = document.getElementById('gallery-grid');
+
+  FILTERS.forEach(function (f) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'pill' + (state.filter === f ? ' active' : '');
+    b.textContent = f;
+    b.addEventListener('click', function () {
+      state.filter = f;
+      Array.from(filterPillsEl.children).forEach(function (p) { p.classList.toggle('active', p.textContent === f); });
+      renderGallery();
+    });
+    filterPillsEl.appendChild(b);
+  });
+
+  function renderGallery() {
+    galleryGridEl.innerHTML = '';
+    var narrow = window.innerWidth < 820;
+    SHOTS.filter(function (g) { return state.filter === 'ALL' || g.tag === state.filter; }).forEach(function (g) {
+      var fig = document.createElement('figure');
+      fig.className = 'gallery-item' + (g.span === 2 && !narrow ? ' wide' : '');
+      fig.innerHTML =
+        phTile(g.ph) +
+        '<figcaption style="position:absolute;inset:auto 0 0 0;padding:14px;background:linear-gradient(to top,rgba(16,17,20,.93),transparent);display:flex;justify-content:space-between;align-items:flex-end;gap:10px;pointer-events:none">' +
+          '<span>' +
+            '<span class="osw" style="display:block;font-size:clamp(16px,1.5vw,21px);text-transform:uppercase;line-height:1.05">' + g.title + '</span>' +
+            '<span class="mono" style="display:block;font-size:10px;letter-spacing:.12em;color:rgba(239,233,222,.6);margin-top:5px">Cut by ' + g.by + '</span>' +
+          '</span>' +
+          '<button type="button" class="gallery-book-btn">Get this look →</button>' +
+        '</figcaption>';
+      fig.querySelector('.gallery-book-btn').addEventListener('click', function () {
+        var barberIdx = BARBERS.findIndex(function (b) { return b.name === g.by; });
+        startBooking(g.tag === 'BEARDS' ? 4 : 0, barberIdx);
+      });
+      galleryGridEl.appendChild(fig);
+    });
+  }
+  renderGallery();
+  window.addEventListener('resize', renderGallery);
+
+  // ---- Before/after slider (placeholder tiles, per handoff — no photos) ----
+  var baBox = document.getElementById('ba-box');
+  var baClip = document.getElementById('ba-clip');
+  var baHandle = document.getElementById('ba-handle');
+  function setBa(pct) {
+    pct = Math.max(2, Math.min(98, pct));
+    state.ba = pct;
+    baClip.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+    baHandle.style.left = pct + '%';
+  }
+  setBa(50);
+  baBox.addEventListener('pointerdown', function (e) {
+    baBox.setPointerCapture(e.pointerId);
+    state.dragging = true;
+    var r = baBox.getBoundingClientRect();
+    setBa(((e.clientX - r.left) / r.width) * 100);
+  });
+  baBox.addEventListener('pointermove', function (e) {
+    if (!state.dragging) return;
+    var r = baBox.getBoundingClientRect();
+    setBa(((e.clientX - r.left) / r.width) * 100);
+  });
+  baBox.addEventListener('pointerup', function () { state.dragging = false; });
+  baBox.addEventListener('pointercancel', function () { state.dragging = false; });
+  document.getElementById('book-this-look').addEventListener('click', function () { startBooking(0, 0); });
+
+  // ---- Reviews carousel ----
+  var revTextEl = document.getElementById('rev-text');
+  var revNameEl = document.getElementById('rev-name');
+  var revMetaEl = document.getElementById('rev-meta');
+  var revCounterEl = document.getElementById('rev-counter');
+  var revDotsEl = document.getElementById('rev-dots');
+
+  REVIEWS.forEach(function (r, i) {
+    var d = document.createElement('button');
+    d.type = 'button';
+    d.className = 'rev-dot' + (state.rev === i ? ' active' : '');
+    d.setAttribute('aria-label', 'Show review ' + (i + 1));
+    d.addEventListener('click', function () { state.rev = i; renderReview(); });
+    revDotsEl.appendChild(d);
+  });
+
+  function renderReview() {
+    var r = REVIEWS[state.rev];
+    revTextEl.textContent = '“' + r.text + '”';
+    revNameEl.textContent = '— ' + r.name;
+    revMetaEl.textContent = r.meta;
+    revCounterEl.textContent = (state.rev + 1) + ' / ' + REVIEWS.length;
+    Array.from(revDotsEl.children).forEach(function (d, k) { d.classList.toggle('active', k === state.rev); });
+  }
+  renderReview();
+  document.getElementById('rev-prev').addEventListener('click', function () { state.rev = (state.rev - 1 + REVIEWS.length) % REVIEWS.length; renderReview(); });
+  document.getElementById('rev-next').addEventListener('click', function () { state.rev = (state.rev + 1) % REVIEWS.length; renderReview(); });
+  setInterval(function () { if (!document.hidden) { state.rev = (state.rev + 1) % REVIEWS.length; renderReview(); } }, 7000);
+
+  // ---- Hours ----
+  var hoursRowsEl = document.getElementById('hours-rows');
+  var todayName = DAYNAMES[new Date().getDay()];
+  HOURS.forEach(function (h) {
+    var row = document.createElement('div');
+    var today = h.day === todayName;
+    row.style.cssText = 'display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 0;border-bottom:1px solid rgba(16,17,20,.12);font-weight:' + (today ? '600' : '400') + ';opacity:' + (today ? '1' : '.62');
+    row.innerHTML = '<span class="mono" style="font-size:12px;letter-spacing:.1em;text-transform:uppercase">' + h.day + '</span><span style="font-size:15px">' + h.time + '</span>';
+    hoursRowsEl.appendChild(row);
+  });
+})();
+</script>
+
+</body>
+</html>
