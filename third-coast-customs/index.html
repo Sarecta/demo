@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Third Coast Customs — Auto Restyling in Chamblee, GA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Chivo+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #0E0113; color: #FFFAFE; font-family: Archivo, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  * { box-sizing: border-box; }
+  a { color: #6DF2A4; text-decoration: none; }
+  a:hover { color: #FFFAFE; }
+  input, textarea, select, button { font-family: inherit; }
+  ::selection { background: #6DF2A4; color: #0E0113; }
+  .mono { font-family: 'Chivo Mono', monospace; }
+
+  @keyframes tcc-mark-in { from { opacity: 0; transform: scale(1.09); filter: blur(16px); } to { opacity: 1; transform: scale(1); filter: blur(0); } }
+  @keyframes tcc-wheel { 0% { opacity: 0; transform: scale(4.6) rotate(1620deg); filter: blur(14px); } 10% { opacity: 1; transform: scale(4.1) rotate(1180deg); filter: blur(11px); } 34% { transform: scale(2.9) rotate(640deg); filter: blur(7px); } 58% { transform: scale(1.86) rotate(288deg); filter: blur(3.4px); } 78% { transform: scale(1.32) rotate(108deg); filter: blur(1.4px); } 92% { transform: scale(1.06) rotate(24deg); filter: blur(0.3px); } 100% { opacity: 1; transform: scale(1) rotate(0deg); filter: blur(0); } }
+  @keyframes tcc-sheen { 0% { transform: translate3d(-140%,0,0); } 55% { transform: translate3d(140%,0,0); } 100% { transform: translate3d(140%,0,0); } }
+  @keyframes tcc-drift { 0% { transform: translate3d(0,0,0) scale(1.06); } 100% { transform: translate3d(0,-1.4%,0) scale(1.11); } }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    [data-anim] { animation: none !important; opacity: 1 !important; filter: none !important; transform: none !important; }
+  }
+
+  [data-reveal] { opacity: 0; transform: translate3d(0,22px,0); transition: opacity 760ms cubic-bezier(.16,.84,.2,1), transform 760ms cubic-bezier(.16,.84,.2,1); }
+  [data-reveal].in { opacity: 1; transform: none; }
+
+  /* Placeholder tile for slots the handoff left unfilled — matches the palette, no stock photos added. */
+  .ph-tile { position: relative; width: 100%; height: 100%; background-color: #16041B;
+    background-image: repeating-linear-gradient(135deg, rgba(255,250,254,.045) 0 1px, transparent 1px 9px); overflow: hidden; }
+  .ph-tile::before { content: ''; position: absolute; top: 10px; left: 10px; width: 16px; height: 16px; border-top: 1px solid rgba(109,242,164,.4); border-left: 1px solid rgba(109,242,164,.4); }
+  .ph-tile .cap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; }
+  .ph-tile .cap span { font-family: 'Chivo Mono', monospace; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: #7E7387; line-height: 1.5; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; white-space: nowrap; background: #6DF2A4; color: #0E0113; font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; padding: 12px 20px; border-radius: 2px; border: 0; cursor: pointer; transition: transform 140ms ease, background 200ms ease; }
+  .btn:hover { background: #8CF7BA; color: #0E0113; }
+  .btn:active { transform: scale(.97); }
+  .navlink { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #9E93A6; font-weight: 500; }
+  .navlink:hover { color: #FFFAFE; }
+  .igLink:hover { color: #6DF2A4; }
+
+  header.site { position: sticky; top: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px clamp(16px,4vw,56px); background: rgba(14,1,19,.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,250,254,.08); flex-wrap: wrap; }
+  header nav { display: flex; align-items: center; gap: clamp(14px,2.4vw,32px); flex-wrap: wrap; justify-content: flex-end; }
+
+  .svc-card { display: flex; flex-direction: column; gap: 10px; padding: clamp(22px,2.2vw,32px); border: 1px solid rgba(255,250,254,.09); background: #120217; transition: border-color 240ms ease, background 240ms ease; }
+  .svc-card:hover { border-color: rgba(109,242,164,.4); background: #16041B; }
+
+  .pill-btn { border: 1px solid rgba(255,250,254,.16); background: transparent; color: #B3A9BA; font-family: 'Chivo Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; padding: 10px 18px; cursor: pointer; border-radius: 2px; transition: all 180ms ease; }
+  .pill-btn:hover, .pill-btn.active { border-color: #6DF2A4; color: #FFFAFE; }
+
+  .ba-box { position: relative; width: 100%; aspect-ratio: 16/9; min-height: 280px; overflow: hidden; background: #0E0113; border: 1px solid rgba(255,250,254,.09); touch-action: pan-y; cursor: ew-resize; user-select: none; }
+
+  /* grid-column:span 2 forces auto-fit to keep 2 tracks even when only one fits, overflowing narrow screens. */
+  .span2 { grid-column: span 2; }
+  @media (max-width: 660px) { .span2 { grid-column: span 1 !important; } }
+  .ba-box img, .ba-box .ph-tile { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+  .gal-scroll { display: flex; gap: clamp(12px,1.5vw,20px); overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; padding: 0 clamp(20px,4vw,72px) 20px; cursor: grab; scrollbar-width: none; }
+  .gal-scroll::-webkit-scrollbar { display: none; }
+  .gal-scroll.dragging { cursor: grabbing; }
+
+  .field { background: #0E0113; border: 1px solid rgba(255,250,254,.16); color: #FFFAFE; font-size: 1rem; padding: 14px 16px; border-radius: 2px; outline: none; width: 100%; }
+  .field:focus { border-color: #6DF2A4; }
+
+  .faq-body { max-height: 0; overflow: hidden; transition: max-height 320ms cubic-bezier(.4,0,.2,1); }
+  .faq-item.open .faq-body { max-height: 260px; }
+</style>
+</head>
+<body>
+
+<div style="position:relative;width:100%;max-width:100vw;background:#0E0113">
+
+  <header class="site">
+    <a href="#top" style="display:flex;align-items:center;gap:12px;color:#FFFAFE">
+      <img src="assets/logo-mark.png" alt="Third Coast Customs" style="width:40px;height:40px;display:block;border-radius:50%">
+      <span class="mono" style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#9E93A6;display:block;max-width:120px;line-height:1.3">Third Coast<br>Customs</span>
+    </a>
+    <nav>
+      <a href="#work" class="navlink">Work</a>
+      <a href="#services" class="navlink">Services</a>
+      <a href="#process" class="navlink">Process</a>
+      <a href="tel:+12512190578" class="mono" style="font-size:13px;color:#FFFAFE;letter-spacing:0.02em;white-space:nowrap">(251) 219‑0578</a>
+      <div style="display:flex;flex-direction:column;align-items:stretch;gap:6px">
+        <a href="#book" class="btn">Book a Consultation</a>
+        <a href="https://instagram.com/thirdcoastcustoms" target="_blank" rel="noopener" class="mono igLink" style="display:flex;align-items:center;justify-content:center;gap:7px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:#B3A9BA;transition:color 180ms ease">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:block;flex:0 0 auto">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5"></rect>
+            <circle cx="12" cy="12" r="4.2"></circle>
+            <circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"></circle>
+          </svg>
+          <span>Instagram</span>
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <section id="top" style="position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));min-height:calc(100svh - 69px);align-items:stretch;border-bottom:1px solid rgba(255,250,254,0.08)">
+    <div style="position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:clamp(16px,2.6svh,34px);padding:clamp(28px,5svh,72px) clamp(20px,4vw,72px) clamp(32px,5svh,64px);z-index:2;order:2">
+      <div data-anim="mark" style="position:relative;width:clamp(84px,13svh,164px);overflow:visible;animation:tcc-wheel 3400ms cubic-bezier(0.12,0.62,0.06,1) 120ms both">
+        <img src="assets/logo-mark.png" alt="Third Coast Customs" style="width:100%;display:block;border-radius:50%">
+        <div style="position:absolute;inset:0;border-radius:50%;overflow:hidden;pointer-events:none">
+          <div data-anim="sheen" style="position:absolute;top:-30%;left:0;width:46%;height:160%;background:linear-gradient(90deg,rgba(255,250,254,0) 0%,rgba(109,242,164,0.28) 45%,rgba(255,250,254,0.55) 55%,rgba(255,250,254,0) 100%);transform:translate3d(-140%,0,0) rotate(14deg);animation:tcc-sheen 7s cubic-bezier(0.4,0,0.2,1) 3.8s infinite;mix-blend-mode:overlay"></div>
+        </div>
+      </div>
+      <h1 style="margin:0;font-size:clamp(2.1rem,min(5.6vw,7.4svh),4.7rem);line-height:0.95;letter-spacing:-0.035em;font-weight:700;text-wrap:balance">Restyled to a<br>higher standard.</h1>
+      <p style="margin:0;max-width:44ch;font-size:clamp(1rem,1.25vw,1.15rem);line-height:1.5;color:#B3A9BA">Color change wraps, STEK paint protection film, chrome deletes and powder coating — installed in Chamblee, one vehicle at a time.</p>
+      <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+        <a href="#book" class="btn" style="padding:17px 28px;font-size:clamp(13px,1vw,15px)">Book a Consultation</a>
+        <span class="mono" style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#7E7387">By appointment · Mon–Fri</span>
+      </div>
+    </div>
+    <div style="position:relative;min-height:38svh;order:1;overflow:hidden;background:#16041B">
+      <div data-anim="drift" style="position:absolute;inset:0;animation:tcc-drift 18s ease-out both">
+        <img src="assets/hero-bmw-wrap.png" alt="Dark studio shot of a wrapped BMW, 3/4 front" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+      </div>
+      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to left,rgba(14,1,19,0.96) 0%,rgba(14,1,19,0.5) 30%,rgba(14,1,19,0.12) 78%),linear-gradient(to top,rgba(14,1,19,0.85),rgba(14,1,19,0) 55%)"></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-wrap:wrap;align-items:center;gap:clamp(20px,4vw,56px);padding:22px clamp(20px,4vw,72px);border-bottom:1px solid rgba(255,250,254,0.08);background:#110216">
+    <span class="mono" style="font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:#6DF2A4">STEK Certified Installer</span>
+    <div style="display:flex;align-items:center;gap:clamp(16px,2.5vw,32px);flex-wrap:wrap">
+      <img src="assets/stek-logo.png" alt="STEK logo" style="width:112px;height:34px;object-fit:contain;opacity:0.92">
+      <div style="width:104px;height:34px;opacity:0.85"><div class="ph-tile"><div class="cap"><span>Film logo</span></div></div></div>
+      <div style="width:104px;height:34px;opacity:0.85"><div class="ph-tile"><div class="cap"><span>Tint logo</span></div></div></div>
+    </div>
+    <span class="mono" style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7E7387;margin-left:auto">Chamblee Square · Atlanta, GA</span>
+  </section>
+
+  <section id="services" style="padding:clamp(72px,10vw,152px) clamp(20px,4vw,72px)">
+    <div data-reveal style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:clamp(36px,5vw,64px)">
+      <h2 style="margin:0;font-size:clamp(1.9rem,4vw,3.4rem);line-height:1;letter-spacing:-0.03em;font-weight:700;max-width:16ch">What we install</h2>
+      <p style="margin:0;max-width:38ch;font-size:0.98rem;line-height:1.55;color:#9E93A6">Every job is quoted after we see the car. Panel condition, paint history and finish choice all move the number.</p>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(12px,1.4vw,20px)">
+      <article data-reveal class="span2" style="position:relative;min-height:clamp(340px,42vw,520px);display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,2.6vw,40px);border:1px solid rgba(255,250,254,0.09);background:#16041B;overflow:hidden">
+        <img src="assets/carbon-rolls.png" alt="Full color change wrap, satin finish" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(14,1,19,0.94) 0%,rgba(14,1,19,0.55) 42%,rgba(14,1,19,0.1) 78%)"></div>
+        <div style="position:relative;display:flex;flex-direction:column;gap:12px;max-width:46ch">
+          <span class="mono" style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#6DF2A4">01 · Flagship</span>
+          <h3 style="margin:0;font-size:clamp(1.6rem,2.6vw,2.4rem);line-height:1.02;letter-spacing:-0.025em;font-weight:700">Full color change vinyl wrap</h3>
+          <p style="margin:0;font-size:1rem;line-height:1.5;color:#C4BBC9">Full-vehicle color change in gloss, satin or matte. Panels disassembled where needed, edges wrapped, no visible seams.</p>
+          <span class="mono" style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#9E93A6">Quoted per vehicle</span>
+        </div>
+      </article>
+
+      <article data-reveal style="position:relative;min-height:clamp(340px,42vw,520px);display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(24px,2.6vw,36px);border:1px solid rgba(255,250,254,0.09);background:#16041B;overflow:hidden">
+        <img src="assets/ppf-install.png" alt="PPF install, film on front end" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+        <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to top,rgba(14,1,19,0.94) 0%,rgba(14,1,19,0.5) 46%,rgba(14,1,19,0.1) 80%)"></div>
+        <div style="position:relative;display:flex;flex-direction:column;gap:12px">
+          <span class="mono" style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#6DF2A4">02 · STEK Certified</span>
+          <h3 style="margin:0;font-size:clamp(1.5rem,2.2vw,2rem);line-height:1.04;letter-spacing:-0.025em;font-weight:700">Paint protection film</h3>
+          <p style="margin:0;font-size:0.98rem;line-height:1.5;color:#C4BBC9">Self-healing, non-yellowing film. Partial front, full front or full body. Removable without damaging factory paint.</p>
+          <span class="mono" style="font-size:12px;letter-spacing:0.12em;text-transform:uppercase;color:#9E93A6">Quoted per coverage</span>
+        </div>
+      </article>
+
+      <article data-reveal class="svc-card">
+        <span class="mono" style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#7E7387">03</span>
+        <h3 style="margin:0;font-size:1.3rem;line-height:1.1;letter-spacing:-0.015em;font-weight:600">Chrome delete</h3>
+        <p style="margin:0;font-size:0.95rem;line-height:1.5;color:#9E93A6">Trim, grille surrounds, window frames and badges taken to gloss or satin black.</p>
+      </article>
+
+      <article data-reveal class="svc-card" style="margin-top:clamp(0px,2vw,28px)">
+        <span class="mono" style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#7E7387">04</span>
+        <h3 style="margin:0;font-size:1.3rem;line-height:1.1;letter-spacing:-0.015em;font-weight:600">Powder coated wheels</h3>
+        <p style="margin:0;font-size:0.95rem;line-height:1.5;color:#9E93A6">Stripped, blasted and coated in your finish. Durable against brake dust and road salt.</p>
+      </article>
+
+      <article data-reveal class="svc-card">
+        <span class="mono" style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#7E7387">05</span>
+        <h3 style="margin:0;font-size:1.3rem;line-height:1.1;letter-spacing:-0.015em;font-weight:600">Brake calipers</h3>
+        <p style="margin:0;font-size:0.95rem;line-height:1.5;color:#9E93A6">High-temp powder coating in factory or custom color. Calipers pulled, prepped and cured.</p>
+      </article>
+
+      <article data-reveal class="svc-card" style="margin-top:clamp(0px,2vw,28px)">
+        <span class="mono" style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:#7E7387">06</span>
+        <h3 style="margin:0;font-size:1.3rem;line-height:1.1;letter-spacing:-0.015em;font-weight:600">Ceramic window tint</h3>
+        <p style="margin:0;font-size:0.95rem;line-height:1.5;color:#9E93A6">Ceramic film for heat and IR rejection without signal interference. Legal shades on request.</p>
+      </article>
+    </div>
+  </section>
+
+  <section style="padding:clamp(64px,8vw,128px) clamp(20px,4vw,72px);background:#110216;border-top:1px solid rgba(255,250,254,0.08);border-bottom:1px solid rgba(255,250,254,0.08)">
+    <div data-reveal style="display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-bottom:clamp(28px,4vw,48px)">
+      <h2 style="margin:0;font-size:clamp(1.9rem,4vw,3.4rem);line-height:1;letter-spacing:-0.03em;font-weight:700">Before / after</h2>
+      <span class="mono" style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7E7387">Drag the handle</span>
+    </div>
+    <div data-reveal style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">
+      <button type="button" class="pill-btn active" data-job="0">Job 01 · Satin wrap</button>
+      <button type="button" class="pill-btn" data-job="1">Job 02 · Chrome delete</button>
+      <button type="button" class="pill-btn" data-job="2">Job 03 · Powder coat</button>
+    </div>
+    <div id="ba-box" class="ba-box">
+      <div id="ba-after"><img src="assets/mclaren-satin.png" alt="Job 01 after, satin wrap"></div>
+      <div id="ba-clip" style="position:absolute;inset:0;clip-path:inset(0 50% 0 0)">
+        <div id="ba-before"><img src="assets/mclaren-gloss.png" alt="Job 01 before, factory paint"></div>
+      </div>
+      <div class="mono" style="position:absolute;left:20px;top:18px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#FFFAFE;background:rgba(14,1,19,0.72);padding:6px 10px;pointer-events:none">Before</div>
+      <div class="mono" style="position:absolute;right:20px;top:18px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6DF2A4;background:rgba(14,1,19,0.72);padding:6px 10px;pointer-events:none">After</div>
+      <div id="ba-handle" style="position:absolute;top:0;bottom:0;left:50%;width:2px;background:#6DF2A4;transform:translateX(-1px);pointer-events:none;box-shadow:0 0 24px rgba(109,242,164,0.45)">
+        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:#6DF2A4;display:flex;align-items:center;justify-content:center;color:#0E0113;font-size:15px;font-weight:700;letter-spacing:-0.06em">⟷</div>
+      </div>
+      <div id="ba-cap" class="mono" style="position:absolute;left:20px;bottom:18px;right:20px;font-size:12px;letter-spacing:0.1em;color:#C4BBC9;pointer-events:none">Job 01 — full color change, satin finish</div>
+    </div>
+    <p class="mono" style="margin:14px 0 0;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8E8397">Placeholder frames — drop matched before/after shots of real jobs</p>
+  </section>
+
+  <section id="process" style="padding:clamp(72px,10vw,152px) clamp(20px,4vw,72px)">
+    <h2 data-reveal style="margin:0 0 clamp(40px,6vw,72px);font-size:clamp(1.9rem,4vw,3.4rem);line-height:1;letter-spacing:-0.03em;font-weight:700;max-width:22ch">From consult to keys back</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:clamp(20px,3vw,48px)">
+      <div data-reveal style="display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1px solid rgba(109,242,164,0.5)">
+        <span class="mono" style="font-size:2rem;line-height:1;color:#6DF2A4;font-weight:300">01</span>
+        <h3 style="margin:0;font-size:1.15rem;font-weight:600;letter-spacing:-0.01em">Consult &amp; panel inspection</h3>
+        <p style="margin:0;font-size:0.95rem;line-height:1.55;color:#9E93A6">We walk the car with you, note defects and confirm finish, coverage and cost in writing.</p>
+      </div>
+      <div data-reveal style="display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1px solid rgba(255,250,254,0.14)">
+        <span class="mono" style="font-size:2rem;line-height:1;color:#FFFAFE;font-weight:300">02</span>
+        <h3 style="margin:0;font-size:1.15rem;font-weight:600;letter-spacing:-0.01em">Decontamination &amp; paint correction</h3>
+        <p style="margin:0;font-size:0.95rem;line-height:1.55;color:#9E93A6">Wash, clay, chemical decon and correction so the film or vinyl bonds to clean paint.</p>
+      </div>
+      <div data-reveal style="display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1px solid rgba(255,250,254,0.14)">
+        <span class="mono" style="font-size:2rem;line-height:1;color:#FFFAFE;font-weight:300">03</span>
+        <h3 style="margin:0;font-size:1.15rem;font-weight:600;letter-spacing:-0.01em">Disassembly &amp; install</h3>
+        <p style="margin:0;font-size:0.95rem;line-height:1.55;color:#9E93A6">Lights, handles and trim come off where needed so edges wrap instead of stopping short.</p>
+      </div>
+      <div data-reveal style="display:flex;flex-direction:column;gap:14px;padding-top:24px;border-top:1px solid rgba(255,250,254,0.14)">
+        <span class="mono" style="font-size:2rem;line-height:1;color:#FFFAFE;font-weight:300">04</span>
+        <h3 style="margin:0;font-size:1.15rem;font-weight:600;letter-spacing:-0.01em">Cure, QC &amp; pickup</h3>
+        <p style="margin:0;font-size:0.95rem;line-height:1.55;color:#9E93A6">Post-heat, cure time, then a panel-by-panel check under inspection light before handoff.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" style="padding:clamp(64px,8vw,128px) 0;background:#110216;border-top:1px solid rgba(255,250,254,0.08)">
+    <div data-reveal style="display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap;padding:0 clamp(20px,4vw,72px);margin-bottom:clamp(28px,4vw,48px)">
+      <h2 style="margin:0;font-size:clamp(1.9rem,4vw,3.4rem);line-height:1;letter-spacing:-0.03em;font-weight:700">Recent work</h2>
+      <span class="mono" style="font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#7E7387">Scroll →</span>
+    </div>
+    <div id="gal-scroll" class="gal-scroll">
+      <figure style="flex:0 0 auto;width:min(88vw,620px);margin:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:14px">
+        <div style="position:relative;width:100%;aspect-ratio:4/3;background:#16041B"><div class="ph-tile"><div class="cap"><span>Wrapped car — 3/4 rear</span></div></div></div>
+        <figcaption class="mono" style="font-size:12px;letter-spacing:0.08em;color:#B3A9BA">Full color change — satin finish <span style="color:#8E8397">· caption to confirm</span></figcaption>
+      </figure>
+      <figure style="flex:0 0 auto;width:min(70vw,460px);margin:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:14px">
+        <div style="position:relative;width:100%;aspect-ratio:3/4;background:#16041B"><div class="ph-tile"><div class="cap"><span>Powder coated wheel detail</span></div></div></div>
+        <figcaption class="mono" style="font-size:12px;letter-spacing:0.08em;color:#B3A9BA">Powder coated wheels <span style="color:#8E8397">· caption to confirm</span></figcaption>
+      </figure>
+      <figure style="flex:0 0 auto;width:min(88vw,620px);margin:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:14px">
+        <div style="position:relative;width:100%;aspect-ratio:4/3;background:#16041B"><div class="ph-tile"><div class="cap"><span>PPF front end, night reflections</span></div></div></div>
+        <figcaption class="mono" style="font-size:12px;letter-spacing:0.08em;color:#B3A9BA">STEK paint protection film — full front <span style="color:#8E8397">· caption to confirm</span></figcaption>
+      </figure>
+      <figure style="flex:0 0 auto;width:min(70vw,460px);margin:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:14px">
+        <div style="position:relative;width:100%;aspect-ratio:3/4;background:#16041B"><div class="ph-tile"><div class="cap"><span>Brake caliper detail</span></div></div></div>
+        <figcaption class="mono" style="font-size:12px;letter-spacing:0.08em;color:#B3A9BA">Powder coated calipers <span style="color:#8E8397">· caption to confirm</span></figcaption>
+      </figure>
+      <figure style="flex:0 0 auto;width:min(88vw,620px);margin:0;scroll-snap-align:start;display:flex;flex-direction:column;gap:14px">
+        <div style="position:relative;width:100%;aspect-ratio:4/3;background:#16041B"><div class="ph-tile"><div class="cap"><span>Chrome delete detail — window trim</span></div></div></div>
+        <figcaption class="mono" style="font-size:12px;letter-spacing:0.08em;color:#B3A9BA">Chrome delete — gloss black <span style="color:#8E8397">· caption to confirm</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section style="padding:clamp(72px,10vw,152px) clamp(20px,4vw,72px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:clamp(28px,4vw,56px);align-items:start">
+    <div data-reveal style="display:flex;flex-direction:column;gap:16px">
+      <h2 style="margin:0;font-size:clamp(1.9rem,4vw,3.4rem);line-height:1;letter-spacing:-0.03em;font-weight:700">Owners</h2>
+      <p class="mono" style="margin:0;font-size:11px;line-height:1.7;letter-spacing:0.1em;text-transform:uppercase;color:#8E8397;max-width:34ch">Placeholder quotes. Replace with real reviews and owner-approved names before launch.</p>
+    </div>
+    <blockquote data-reveal style="margin:0;display:flex;flex-direction:column;gap:18px;padding:clamp(24px,2.4vw,32px);border-left:1px solid rgba(109,242,164,0.5);background:#120217">
+      <p style="margin:0;font-size:1.05rem;line-height:1.55;color:#E4DEE7">[Placeholder] Short quote about the finish quality and how the edges were wrapped.</p>
+      <footer class="mono" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#7E7387">[Owner name] · [Vehicle]</footer>
+    </blockquote>
+    <blockquote data-reveal style="margin:0;display:flex;flex-direction:column;gap:18px;padding:clamp(24px,2.4vw,32px);border-left:1px solid rgba(255,250,254,0.14);background:#120217">
+      <p style="margin:0;font-size:1.05rem;line-height:1.55;color:#E4DEE7">[Placeholder] Short quote about turnaround time and communication during the install.</p>
+      <footer class="mono" style="font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:#7E7387">[Owner name] · [Vehicle]</footer>
+    </blockquote>
+  </section>
+
+  <section style="padding:clamp(64px,8vw,128px) clamp(20px,4vw,72px);background:#110216;border-top:1px solid rgba(255,250,254,0.08);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(32px,5vw,72px);align-items:start">
+    <h2 data-reveal style="margin:0;font-size:clamp(1.9rem,4vw,3.4rem);line-height:1;letter-spacing:-0.03em;font-weight:700;max-width:14ch">Straight answers</h2>
+    <div data-reveal id="faq-list" class="span2" style="display:flex;flex-direction:column"></div>
+  </section>
+
+  <section id="book" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:clamp(32px,5vw,80px);padding:clamp(72px,10vw,152px) clamp(20px,4vw,72px);border-top:1px solid rgba(255,250,254,0.08)">
+    <div style="display:flex;flex-direction:column;gap:clamp(28px,3vw,44px)">
+      <div data-reveal style="display:flex;flex-direction:column;gap:18px">
+        <img src="assets/logo-mark.png" alt="" style="width:64px;height:64px;border-radius:50%;opacity:0.9">
+        <h2 style="margin:0;font-size:clamp(2rem,4.4vw,3.6rem);line-height:0.98;letter-spacing:-0.035em;font-weight:700;max-width:18ch">Book a consultation</h2>
+        <p style="margin:0;max-width:42ch;font-size:1rem;line-height:1.55;color:#9E93A6">Send the car and what you want done. We reply with coverage options, timing and a firm price.</p>
+      </div>
+      <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:28px">
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span class="mono" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6DF2A4">Shop</span>
+          <a href="https://maps.google.com/?q=3365+W+Hospital+Ave+Ste+M+Chamblee+GA+30341" target="_blank" rel="noopener" style="font-size:0.98rem;line-height:1.55;color:#E4DEE7">3365 W Hospital Ave Ste M<br>Chamblee, GA 30341<br><span style="color:#7E7387">Chamblee Square</span></a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span class="mono" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6DF2A4">Phone</span>
+          <a href="tel:+12512190578" class="mono" style="font-size:1.05rem;color:#E4DEE7">(251) 219‑0578</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span class="mono" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#6DF2A4">Hours</span>
+          <div class="mono" style="font-size:0.9rem;line-height:1.7;color:#E4DEE7">Mon–Fri&nbsp;&nbsp;11 AM–6 PM<br><span style="color:#7E7387">Sat–Sun&nbsp;&nbsp;Closed</span></div>
+        </div>
+      </div>
+    </div>
+
+    <form id="book-form" data-reveal style="display:flex;flex-direction:column;gap:18px;padding:clamp(24px,3vw,40px);background:#120217;border:1px solid rgba(255,250,254,0.1)">
+      <label style="display:flex;flex-direction:column;gap:8px">
+        <span class="mono" style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9E93A6">Name</span>
+        <input type="text" name="name" required class="field">
+      </label>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr));gap:18px">
+        <label style="display:flex;flex-direction:column;gap:8px">
+          <span class="mono" style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9E93A6">Phone</span>
+          <input type="tel" name="phone" required class="field">
+        </label>
+        <label style="display:flex;flex-direction:column;gap:8px">
+          <span class="mono" style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9E93A6">Vehicle</span>
+          <input type="text" name="vehicle" placeholder="Year / make / model" class="field">
+        </label>
+      </div>
+      <label style="display:flex;flex-direction:column;gap:8px">
+        <span class="mono" style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9E93A6">Service</span>
+        <select name="service" class="field">
+          <option>Full color change wrap</option>
+          <option>Paint protection film</option>
+          <option>Chrome delete</option>
+          <option>Powder coating — wheels</option>
+          <option>Powder coating — brake calipers</option>
+          <option>Ceramic window tint</option>
+          <option>Something else</option>
+        </select>
+      </label>
+      <label style="display:flex;flex-direction:column;gap:8px">
+        <span class="mono" style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#9E93A6">Details</span>
+        <textarea name="details" rows="3" placeholder="Finish, coverage, timing" class="field" style="resize:vertical"></textarea>
+      </label>
+      <button type="submit" id="book-submit" class="btn" style="margin-top:6px;font-size:14px;padding:18px 24px">Book a Consultation</button>
+      <p id="book-note" class="mono" style="margin:0;font-size:11px;letter-spacing:0.1em;color:#8E8397">We reply during shop hours, Mon–Fri.</p>
+    </form>
+  </section>
+
+  <footer style="border-top:1px solid rgba(255,250,254,0.08);background:#110216;padding:clamp(48px,6vw,80px) clamp(20px,4vw,72px) 32px;display:flex;flex-direction:column;gap:40px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:32px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <img src="assets/logo-mark.png" alt="Third Coast Customs" style="width:56px;height:56px;border-radius:50%;opacity:0.85">
+        <span class="mono" style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:#7E7387">Auto restyling<br>Chamblee, GA</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span class="mono" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#8E8397">Visit</span>
+        <span style="font-size:0.95rem;line-height:1.6;color:#B3A9BA">3365 W Hospital Ave Ste M<br>Chamblee, GA 30341</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span class="mono" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#8E8397">Hours</span>
+        <span class="mono" style="font-size:0.88rem;line-height:1.8;color:#B3A9BA">Mon–Fri 11 AM–6 PM<br>Sat–Sun Closed</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span class="mono" style="font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#8E8397">Contact</span>
+        <a href="tel:+12512190578" class="mono" style="font-size:0.95rem;color:#B3A9BA">(251) 219‑0578</a>
+        <a href="https://instagram.com/thirdcoastcustoms" target="_blank" rel="noopener" style="font-size:0.95rem;color:#6DF2A4">Instagram →</a>
+      </div>
+      <a href="#book" class="btn" style="padding:16px 22px;height:fit-content">Book a Consultation</a>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;padding-top:24px;border-top:1px solid rgba(255,250,254,0.08)" class="mono">
+      <span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8E8397">STEK Certified Installer</span>
+      <span style="font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#8E8397">© 2026 Third Coast Customs</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Reveal on scroll
+  var revealNodes = document.querySelectorAll('[data-reveal]');
+  if (reduce) {
+    revealNodes.forEach(function (n) { n.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var sibs = Array.from(e.target.parentElement ? e.target.parentElement.children : []).filter(function (c) { return c.hasAttribute && c.hasAttribute('data-reveal'); });
+        var i = Math.max(0, sibs.indexOf(e.target));
+        e.target.style.transitionDelay = Math.min(i * 90, 360) + 'ms';
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    revealNodes.forEach(function (n) { io.observe(n); });
+  }
+
+  // Before/after slider
+  var JOBS = [
+    { cap: 'Job 01 — full color change, satin finish', beforeSrc: 'assets/mclaren-gloss.png', beforeAlt: 'Job 01 before, factory paint', afterSrc: 'assets/mclaren-satin.png', afterAlt: 'Job 01 after, satin wrap' },
+    { cap: 'Job 02 — chrome delete, gloss black trim', beforePh: 'Job 02 — before', afterPh: 'Job 02 — after' },
+    { cap: 'Job 03 — powder coated wheels, satin bronze', beforePh: 'Job 03 — before', afterPh: 'Job 03 — after' }
+  ];
+  var baBox = document.getElementById('ba-box');
+  var baClip = document.getElementById('ba-clip');
+  var baHandle = document.getElementById('ba-handle');
+  var baCap = document.getElementById('ba-cap');
+  var baBefore = document.getElementById('ba-before');
+  var baAfter = document.getElementById('ba-after');
+  var dragging = false;
+
+  function setPct(pct) {
+    pct = Math.min(100, Math.max(0, pct));
+    baClip.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+    baHandle.style.left = pct + '%';
+  }
+  function setFrom(clientX) {
+    var r = baBox.getBoundingClientRect();
+    setPct(((clientX - r.left) / r.width) * 100);
+  }
+  baBox.addEventListener('pointerdown', function (e) { dragging = true; baBox.setPointerCapture(e.pointerId); setFrom(e.clientX); });
+  baBox.addEventListener('pointermove', function (e) { if (dragging) setFrom(e.clientX); });
+  baBox.addEventListener('pointerup', function () { dragging = false; });
+  baBox.addEventListener('pointercancel', function () { dragging = false; });
+
+  function fillSide(container, srcOrPh, alt, isPh) {
+    container.innerHTML = isPh
+      ? '<div class="ph-tile"><div class="cap"><span>' + srcOrPh + '</span></div></div>'
+      : '<img src="' + srcOrPh + '" alt="' + alt + '">';
+  }
+  function pickJob(i) {
+    var j = JOBS[i];
+    baCap.textContent = j.cap;
+    if (j.beforeSrc) fillSide(baBefore, j.beforeSrc, j.beforeAlt, false);
+    else fillSide(baBefore, j.beforePh, '', true);
+    if (j.afterSrc) fillSide(baAfter, j.afterSrc, j.afterAlt, false);
+    else fillSide(baAfter, j.afterPh, '', true);
+    setPct(50);
+    document.querySelectorAll('.pill-btn').forEach(function (b, k) { b.classList.toggle('active', k === i); });
+  }
+  document.querySelectorAll('.pill-btn').forEach(function (btn, i) {
+    btn.addEventListener('click', function () { pickJob(i); });
+  });
+
+  // Gallery drag-to-scroll
+  var gal = document.getElementById('gal-scroll');
+  var galDown = false, galStartX = 0, galStartScroll = 0;
+  gal.addEventListener('pointerdown', function (e) { galDown = true; galStartX = e.clientX; galStartScroll = gal.scrollLeft; gal.classList.add('dragging'); });
+  gal.addEventListener('pointermove', function (e) { if (!galDown) return; gal.scrollLeft = galStartScroll - (e.clientX - galStartX); });
+  function galStop() { galDown = false; gal.classList.remove('dragging'); }
+  gal.addEventListener('pointerup', galStop);
+  gal.addEventListener('pointerleave', galStop);
+
+  // FAQ accordion (single-open, first one open by default)
+  var FAQS = [
+    { q: 'Does paint protection film yellow over time?', a: "Not the film we install. STEK's top coat is non-yellowing and self-healing, and it carries a manufacturer warranty against discoloration. Older-generation films from a decade ago are where that reputation came from." },
+    { q: 'How long does an install take?', a: 'A full-front PPF is typically one to two days. A full color change wrap is three to five days depending on disassembly. Powder coating wheels or calipers runs two to three days including cure time.' },
+    { q: 'Is a wrap or film removable?', a: 'Yes. Both come off with controlled heat and leave factory paint intact, provided the paint was original and in sound condition. We flag any repainted or failing panels at the consultation.' },
+    { q: 'Will it void my factory warranty?', a: "No. Wraps, film, tint and coated wheels are non-permanent additions and do not affect a manufacturer's powertrain or paint warranty." },
+    { q: 'Walk-ins or appointment?', a: "By appointment. We run one vehicle at a time so the bay stays clean, and quotes need the car in front of us. Call or send the form and we'll book you in." }
+  ];
+  var faqList = document.getElementById('faq-list');
+  FAQS.forEach(function (f, i) {
+    var item = document.createElement('div');
+    item.className = 'faq-item' + (i === 0 ? ' open' : '');
+    item.style.borderBottom = '1px solid rgba(255,250,254,0.12)';
+    item.innerHTML =
+      '<button type="button" style="width:100%;display:flex;align-items:center;justify-content:space-between;gap:20px;background:transparent;border:0;padding:22px 0;text-align:left;color:#FFFAFE;font-size:clamp(1rem,1.5vw,1.15rem);font-weight:500;letter-spacing:-0.01em;cursor:pointer">' +
+        '<span>' + f.q + '</span>' +
+        '<span class="mono faq-sign" style="color:#6DF2A4;font-size:1.1rem;flex:0 0 auto">' + (i === 0 ? '−' : '+') + '</span>' +
+      '</button>' +
+      '<div class="faq-body"><p style="margin:0;padding:0 0 24px;max-width:62ch;font-size:0.98rem;line-height:1.6;color:#9E93A6">' + f.a + '</p></div>';
+    var btn = item.querySelector('button');
+    btn.addEventListener('click', function () {
+      var wasOpen = item.classList.contains('open');
+      faqList.querySelectorAll('.faq-item').forEach(function (other) {
+        other.classList.remove('open');
+        other.querySelector('.faq-sign').textContent = '+';
+      });
+      if (!wasOpen) {
+        item.classList.add('open');
+        item.querySelector('.faq-sign').textContent = '−';
+      }
+    });
+    faqList.appendChild(item);
+  });
+
+  // Booking form — demo only
+  var form = document.getElementById('book-form');
+  var submitBtn = document.getElementById('book-submit');
+  var note = document.getElementById('book-note');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    submitBtn.textContent = 'Request sent';
+    note.textContent = 'Demo form — connect to email or booking software before launch.';
+  });
+})();
+</script>
+
+</body>
+</html>
